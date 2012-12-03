@@ -14,6 +14,12 @@
 
 安全始终是高速铁路发展过程中的首要目标，而GSM-R网络则是保证高铁系统安全性的重要环节，因此有必要对GSM-R网络进行在线实时测试，在确保GSM-R网络正常通信的基础之上，保证整个高铁系统的稳定运行。但是由于高铁系统具有较为特殊的无线传播环境，传统的信号强度测试算法无法直接应用于GSM-R网络测试中，例如高铁线路周围地形复杂多变以及列车处于高速运行状态，这就要求GSM-R网络信号强度测试算法必须具有实时高效的特点，以适应高速铁路的特殊要求。
 
+\section{问题描述}
+\label{sec:problem2}
+
+\subsection{现有工作}
+\label{sec:current3}
+
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=4in]{chap2/measurement.pdf}
@@ -21,6 +27,23 @@
 \end{figure}
 
 The procedures of propagation measurement in GSM-R networks is typically composed of the local mean power estimation, propagation prediction and model correction, as is demonstrated in Fig.~\ref{fig:measurement}. The received signal firstly passes through a linear or log-linear amplifier to get $p_r(x)$ or $P_r(x)$, and then is filtered by an averaging filter to get the local mean estimation $s(x)$ or $S(x)$. The estimation results can be used for coverage assessment, channel allocation, power control and handoff algorithms, which can achieve higher performance combined with dynamic measurement and propagation prediction of $m(x)$ or $M(x)$. The estimation accuracy is not only influenced by train's velocity but also by shadow fading and multi-path fading, and it can be improved by the correction of $K_1$ and $K_2$. In GSM-R networks, these steps should be implemented real-time to ensure the system's reliability.
+
+The basic consideration in local power estimation is the sampling frequency which is determined by the length of statistical intervals and number of averaging samples. The received signal strength of wireless propagation is influenced by the environments, so the local mean power estimation should be dynamic to the networks status, especially for GSM-R networks. Fig.~\ref{fig:time} demonstrates the time varying and location difference characteristics of received signal strength $P_r(x)$ in mobile networks, which indicates the facts that Fig.~\ref{fig:time_vary}: certain received signal strength carve contains both long-term and short-term fluctuation; Fig.~\ref{fig:cdf_rss}: the overall received signal strength shows different characteristics for different routes. Since the received signal strength $P_r(x)$ is changing in both large and small time scale, the local mean power estimation should also be adaptive to this fluctuation.
+
+A more detailed illustration is given in Fig.~\ref{fig:pdr_over}, which shows the estimation results with different sampling intervals. If the length of averaging interval is set too short, the rapid variations of signal strength will remain in estimation results. This will lead to unstable fluctuation of up-layer decisions, for instance the phenomenon of ping-pong handover when the received signal strength $P_r(x)$ is fluctuating around the threshold. On the other hand, it will lost some crucial information if the statistical interval length is chosen to be too long. As is shown in Fig.~\ref{fig:pdr_over}, the result overestimates the received signal strength when $\Delta t=100$ms, especially when there is sudden decline for received signal strength $P_r(x)$. This overestimation will lead to the decrease of quality of service that the system can provide according to current status.
+
+Lee's method proposed a standard procedure of local average power estimation, which determined the proper length and required sampling numbers for estimating the local average. But Lee's method is conducted in the case of Rayleigh fading channels, which can not be adaptive to environmental changes. The Generalized Lee method allows estimating the mean values without the requirement of a priori knowing the distribution function, which is based on measured field data samples. However the optimum length of averaging interval is calculated using all the routes of the database with high overhead. To make the local mean power estimation adaptive to dynamic prorogation environments with low measurement overhead, the on-line estimation algorithm is proposed which is analyzed in Rician fading channels. The basic process and analysis is presented in detail in the following section.
+
+\subsection{存在问题}
+\label{sec:prob3}
+
+\begin{itemize}
+  \item \textbf{高速移动特性}
+  GSM-R网络处于高速运行状态，
+  \item \textbf{无线传播环境}
+  GSM-R网络一般存在直射路径，
+\end{itemize}
+
 
 \begin{figure}[!htp]
 \centering
@@ -33,12 +56,6 @@ The procedures of propagation measurement in GSM-R networks is typically compose
     \includegraphics[width=1.6in]{chap2/cdfrss.pdf}}
 \bicaption[fig:time]{时变特性与位置差异}{移动网络时变特性及位置差异}{Fig}{Time varying and location difference characteristics of received signal strength}
 \end{figure}
-
-The basic consideration in local power estimation is the sampling frequency which is determined by the length of statistical intervals and number of averaging samples. The received signal strength of wireless propagation is influenced by the environments, so the local mean power estimation should be dynamic to the networks status, especially for GSM-R networks. Fig.~\ref{fig:time} demonstrates the time varying and location difference characteristics of received signal strength $P_r(x)$ in mobile networks, which indicates the facts that Fig.~\ref{fig:time_vary}: certain received signal strength carve contains both long-term and short-term fluctuation; Fig.~\ref{fig:cdf_rss}: the overall received signal strength shows different characteristics for different routes. Since the received signal strength $P_r(x)$ is changing in both large and small time scale, the local mean power estimation should also be adaptive to this fluctuation.
-
-A more detailed illustration is given in Fig.~\ref{fig:pdr_over}, which shows the estimation results with different sampling intervals. If the length of averaging interval is set too short, the rapid variations of signal strength will remain in estimation results. This will lead to unstable fluctuation of up-layer decisions, for instance the phenomenon of ping-pong handover when the received signal strength $P_r(x)$ is fluctuating around the threshold. On the other hand, it will lost some crucial information if the statistical interval length is chosen to be too long. As is shown in Fig.~\ref{fig:pdr_over}, the result overestimates the received signal strength when $\Delta t=100$ms, especially when there is sudden decline for received signal strength $P_r(x)$. This overestimation will lead to the decrease of quality of service that the system can provide according to current status.
-
-Lee's method proposed a standard procedure of local average power estimation, which determined the proper length and required sampling numbers for estimating the local average. But Lee's method is conducted in the case of Rayleigh fading channels, which can not be adaptive to environmental changes. The Generalized Lee method allows estimating the mean values without the requirement of a priori knowing the distribution function, which is based on measured field data samples. However the optimum length of averaging interval is calculated using all the routes of the database with high overhead. To make the local mean power estimation adaptive to dynamic prorogation environments with low measurement overhead, the on-line estimation algorithm is proposed which is analyzed in Rician fading channels. The basic process and analysis is presented in detail in the following section.
 
 \section{无线传播模型}
 \label{sec:channelmodel}
@@ -330,8 +347,29 @@ The sampling intervals $\Delta d$ has a significant impact on the measurement ac
 \section{系统实现}
 \label{sec:system_phy}
 
-\subsection{GSM-R网络空中接口测试}
+\subsection{硬件平台}
 \label{sec:um}
+
+To get the received data and evaluate the measurement performance, we developed the Um interface monitoring system for GSM-R networks. The hardware and software architecture is shown in Fig.~\ref{fig:platform}, and the online estimation algorithm is implemented on this platform. The system's cpu module is RTD's CME137686LX-W including a 333MHz AMD Geode LX processor with 128kB L1 cache and 128kB L2 cache, and the communication module is COM16155RER-1 using Triorail's GSM-R engine TRM:3a. The system's power supply, processor and comunication module are connected through PC/104 bus, and other peripherals through its specific interface. The hardware components is demonstrated in Fig.~\ref{fig:hardware}. The software is independently developed by our research group, which uses Microsoft .NET Compact Framework in C\#, and it can run on various operating systems including Windows XP, Windows Mobile, and Windows CE. The software interface is shown in Fig.~\ref{fig:software}.
+
+\begin{figure}[!htp]
+\centering
+\subfigure[Hardware Design]{
+    \label{fig:hardware}
+    \includegraphics[width=2.5in]{chap2/platform.pdf}}
+    \hspace{1cm}
+\subfigure[Software Development]{
+    \label{fig:software}
+    \includegraphics[width=2.5in]{chap2/softwareinterface.pdf}}
+\bicaption[fig:platform]{GSM-R网络空中接口测试系统}{GSM-R网络空中接口测试系统}{Fig}{Um Interface Monitoring System for GSM-R Networks}
+\end{figure}
+
+\subsection{软件开发}
+\label{sec:softwaregsmmr}
+
+
+\subsection{算法实现}
+\label{sec:alggsmr}
 
 The algorithm design and implementation is presented in this section, which first gives a brief description of on-line measurement procedure and then demonstrates the software framework and development.
 
@@ -383,28 +421,10 @@ The on-line estimation algorithm is given in Algorithm~\ref{alg:online}, which i
 \bicaption[fig:umframework]{信道状态估计算法与实现}{信道状态估计算法与实现}{Fig}{Estimation framework and algorithm implementation}
 \end{figure}
 
-To get the received data and evaluate the measurement performance, we developed the Um interface monitoring system for GSM-R networks. The hardware and software architecture is shown in Fig.~\ref{fig:platform}, and the online estimation algorithm is implemented on this platform. The system's cpu module is RTD's CME137686LX-W including a 333MHz AMD Geode LX processor with 128kB L1 cache and 128kB L2 cache, and the communication module is COM16155RER-1 using Triorail's GSM-R engine TRM:3a. The system's power supply, processor and comunication module are connected through PC/104 bus, and other peripherals through its specific interface. The hardware components is demonstrated in Fig.~\ref{fig:hardware}. The software is independently developed by our research group, which uses Microsoft .NET Compact Framework in C\#, and it can run on various operating systems including Windows XP, Windows Mobile, and Windows CE. The software interface is shown in Fig.~\ref{fig:software}.
-
-\begin{figure}[!htp]
-\centering
-\subfigure[Hardware Design]{
-    \label{fig:hardware}
-    \includegraphics[width=2.5in]{chap2/platform.pdf}}
-    \hspace{1cm}
-\subfigure[Software Development]{
-    \label{fig:software}
-    \includegraphics[width=2.5in]{chap2/softwareinterface.pdf}}
-\bicaption[fig:platform]{GSM-R网络空中接口测试系统}{GSM-R网络空中接口测试系统}{Fig}{Um Interface Monitoring System for GSM-R Networks}
-\end{figure}
-
 As is illustrated in Fig.~\ref{fig:umframework}, the on-line estimation algorithm provides basic information to up-layer applications. The raw data of received signal strength is collected by GSM-R device, which is composed of the information of current cell and 6 neighbour cells. Then these data is processed by the on-line estimation algorithm to provide current network status and conduct next signal sampling. The system also provides received signal strength prediction based on the weighted averaging of signal samples, and gives warning information when the communication performance is lower than certain threshold. Since the system records the received signal strength of current and neighbour cells, the data can be used to make handover analysis and network optimization. Except the physical layer information, the system can also give quality of service of the link layer, including data traffic and voice service.
-
 
 \section{性能评估}
 \label{chap:evaluation_phy}
-
-\subsection{接收信号强度}
-\label{sec:rss}
 
 This section presents the experiment and evaluation of on-line and dynamic estimation algorithm proposed previously. Received signal strength measurements, which is implemented by GSM-R network monitoring system, were carried out along the Beijing-Shanghai high-speed railway, and the accuracy and overhead of the algorithm is evaluated in the following.
 
@@ -501,5 +521,8 @@ Open  & 10 &  18 & 4 & 12 &  1 & 12.0 & 4.000 & 24.00 & 19.20 & 16.00\\
     \includegraphics[width=4.5in]{chap2/short.pdf}}
 \bicaption[fig:strength]{接收信号强度与信号衰落}{接收信号强度与信号衰落}{Fig}{Received signal strength and signal fading}
 \end{figure}
+
+\section{本章小结}
+\label{sec:conclusion2}
 
 \nocite{*}
