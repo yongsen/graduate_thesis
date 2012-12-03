@@ -1,0 +1,98 @@
+%%==================================================
+%% app1.tex for SJTU Master Thesis
+%% based on CASthesis
+%% modified by wei.jianwen@gmail.com
+%% version: 0.3a
+%% Encoding: UTF-8
+%% last update: Dec 5th, 2010
+%%==================================================
+
+\chapter{接收信号强度本地均值估计}
+\label{chap:meanestimation}
+
+\section{统计区间长度}
+\label{sec:lengthestimation}
+
+$R_{p_{r}^2}(\tau)$ it can be derived from (\ref{rician}) and (\ref{ricianPDF}) by approximation\cite{Austin1994} as follows:
+\begin{equation}
+    R_{p_{r}^2}(\tau)=4\sigma^2\left[J_0^2\left(\frac{2\pi}{\lambda}\tau\right)+2KJ_0\left(\frac{2\pi}{\lambda}\tau\right)\cos\left(\frac{2\pi}{\lambda}\eta\tau\right)\right]
+\label{app:autocovariance}
+\end{equation}
+where $J_0(\cdot)$ is the zero-order Bessel function, and $\eta=\cos\theta_0$. Then $\sigma_{\hat{s}}^2$ can be calculated by substituting (\ref{app:autocovariance}) into (\ref{shadow_variance}).
+%\begin{equation}
+%\begin{split}
+%\sigma_{\hat{s}}^{2}=&\frac{4\sigma^2}{L}\int\limits_{0}^{2L}(1-\frac{\tau}{2L})\left[J_0^2\left(\frac{2\pi}{\lambda}\tau\right)+2KJ_0\left(\frac{2\pi}{\lambda}\tau\right)\cos\left(\frac{2\pi}{\lambda}\eta\tau\right)\right]d\tau\\
+%\stackrel{\rho\triangleq\frac{\tau}{\lambda}}{=}&\frac{\hat{s}^2(2L-\lambda)\lambda}{2(1+K)^{2}L^2}\int\limits_0^{\frac{2L}{\lambda}}\left[J_0^2\left(2\pi \rho\right)+2KJ_0\left(2\pi \rho\right)\cos\left(2\pi \eta\right)\right]\rho d\rho
+%\end{split}
+%\label{shadow_sigma}
+%\end{equation}
+\begin{equation}
+\begin{split}
+\sigma_{\hat{s}}^{2}=&\frac{4\sigma^2}{L}\int\limits_{0}^{2L}\frac{2L-\tau}{2L}[J_0^2(\frac{2\pi}{\lambda}\tau)+2KJ_0(\frac{2\pi}{\lambda}\tau)\cos(\frac{2\pi}{\lambda}\eta\tau)]d\tau\\
+=&\frac{\hat{s}^2(2L-\lambda)\lambda}{2(1+K)^{2}L^2}\int\limits_0^{\frac{2L}{\lambda}}[J_0^2(2\pi \rho)+2KJ_0(2\pi \rho)\cos(2\pi \eta)]\rho d\rho
+\end{split}
+\label{app:shadow_sigma}
+\end{equation}
+where $\rho=\tau/\lambda$ is the intermediate valuable and $\sigma_{\hat{s}}^2\rightarrow0$ as $2L/\lambda\rightarrow\infty$. $\hat{s}$ can be considered as Gaussian distributed when $2L$ is large enough. Then $\sigma_{\hat{s}}^2$ can be represented by the simple form as follows:
+\begin{equation}
+\sigma_{\hat{s}}^2=\frac{2(n-1)}{n^2(1+K)^2}\int\limits_0^n g(K;\rho) d\rho
+\label{app:sigmareplace}
+\end{equation}
+where $n:=2L/\lambda$ represents the relationship between statistical intervals $2L$ and wireless prorogation wavelength $\lambda$, $g(K;\rho):=[J_0^2(2\pi \rho)+2KJ_0(2\pi \rho)\cos(2\pi \eta)]\rho$ is the intermediate function. Then the estimation error can be calculated as follows:
+\begin{equation}
+\begin{split}
+P_e:&=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}}\right) \\
+    &=10 \log_{10}\left(\frac{n(1+K)+\sqrt{2(1+n)\int\limits_0^n g(K;\rho) d\rho}}{n(1+K)-\sqrt{2(1+n)\int\limits_0^n g(K;\rho) d\rho}}\right) \\
+    &= 10 \log_{10}\left(\frac{\frac{2\sigma^2+\nu^2}{2\sigma^2}n+\sqrt{2(1+n)\int\limits_0^n g\left(\frac{\nu^2}{2\sigma^2};\rho\right) d\rho}}{\frac{2\sigma^2+\nu^2}{2\sigma^2}n-\sqrt{2(1+n)\int\limits_0^n g\left(\frac{\nu^2}{2\sigma^2};\rho\right) d\rho}}\right)
+\end{split}
+\label{app:Perror}
+\end{equation}
+
+
+\section{采样点数目}
+\label{chap:numberestimation}
+
+Let $x_{0i}=x_i/\sigma$, then $x_{0i} \sim N(\nu \sin \eta,1)$ and its sum subject to the non-central $\chi^2$ distribution, that is $\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$. For $E[\chi_n^2(\lambda)]=n+\lambda$ and $D[\chi_n^2(\lambda)]=2n+4\lambda$, the mean value and variance of $\sum_{i=1}^{N}x_i^2$ can be calculated by:
+\begin{equation}
+\begin{split}
+    E\left[\sum_{i=1}^{N}x_i^2\right]&=\sigma^2E\left[\sum_{i=1}^{N}x_{0i}^2\right]\\
+    &=\sigma^2E\left[\chi_N^2(\nu^2\cos^2\eta)\right]\\
+    &=\sigma^2\left(N+\nu^2\cos^2\eta\right)
+\end{split}
+\label{app:E_x}
+\end{equation}
+\begin{equation}
+\begin{split}
+    D\left[\sum_{i=1}^{N}x_i^2\right]&=\sigma^4D\left[\sum_{i=1}^{N}x_{0i}^2\right]\\
+    &=\sigma^4D\left[\chi_N^2(\nu^2\cos^2\eta)\right]\\
+    &=\sigma^4\left(2N+4\nu^2\cos^2\eta\right)
+\label{app:D_x}
+\end{split}
+\end{equation}
+and $E[\sum_{i=1}^{N}y_i^2]=\sigma^2(N+\nu^2\sin^2\eta)$, $D[\sum_{i=1}^{N}y_i^2]=\sigma^4(2N+4\nu^2\sin^2\eta)$ can also be calculated in the same way. Then the expectation of $r^2$ and its variance can be calculated by:
+\begin{equation}
+\begin{split}
+    \bar{r^2}&=E\left[\frac{1}{N}\sum_{i=1}^{N}z_i^2\right]=\frac{1}{N}E\left[\sum_{i=1}^{N}(x_i^2+y_i^2)\right]\\
+    &=\frac{\sigma^2}{N}\left(N+\nu^2\cos^2\eta+N+\nu^2\sin^2\eta\right)\\
+    &=\frac{\sigma^2}{N}\left(2N+\nu^2\right)
+\end{split}
+\label{app:E_r2}
+\end{equation}
+\begin{equation}
+\begin{split}
+    \sigma_{\bar{r^2}}^2&=D\left[\frac{1}{N}\sum_{i=1}^{N}z_i^2\right]=\frac{1}{N^2}D\left[\sum_{i=1}^{N}\left(x_i^2+y_i^2\right)\right]\\
+    &=\frac{\sigma^4}{N^2}\left(2N+4\nu^2\cos^2\eta+2N+4\nu^2\sin^2\eta\right)\\
+    &=\frac{\sigma^4}{N^2}\left(4N+4\nu^2\right)
+\end{split}
+\label{app:D_r2}
+\end{equation}
+
+Then the estimation error can be calculated as follows:
+\begin{equation}
+\begin{split}
+    Q_e&=10 \log_{10}\left(\frac{\bar{r^2}+\sigma_{\bar{r^2}}}{\bar{r^2}}\right)\\
+    &=10 \log_{10}\left(\frac{\frac{\sigma^2}{N}\left(2N+\nu^2\right)+\frac{2\sigma^2}{N}\sqrt{N+\nu^2}}{\frac{\sigma^2}{N}(2N+\nu^2)}\right)\\
+    &=10 \log_{10}\left(\frac{2N+\nu^2+2\sqrt{N+\nu^2}}{2N+\nu^2}\right)
+\end{split}
+\label{app:Q_e}
+\end{equation}

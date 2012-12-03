@@ -1,0 +1,16 @@
+%%==================================================
+%% conclusion.tex for SJTU Master Thesis
+%% based on CASthesis
+%% modified by wei.jianwen@gmail.com
+%% version: 0.3a
+%% Encoding: UTF-8
+%% last update: Dec 5th, 2010
+%%==================================================
+
+\chapter*{全文总结\markboth{全文总结}{}}
+\addcontentsline{toc}{chapter}{全文总结}
+
+This paper proposed the on-line and dynamic estimation algorithm of Rician fading channels in GSM-R networks, which is influential in system's real-time reliability. We gave the basic procedure of this algorithm which is similar to the Lee's standard procedure except that the multi-path fading channel is Rician distributed, for the cell radius is designed short and the terrain is generally flat in GSM-R networks. Then we discussed the determination of proper length of statistical interval and required number of averaging samples, in which EM method is employed to reduce the estimating overhead and make the measurement adaptive to different propagation environments. To evaluate the performance of the algorithm, measurement experiment was implemented along the Beijing-Shanghai high-speed railway. It is illustrated that the long-term and short-term fading can be differentiated separately by the on-line estimating algorithm. In the end, the experiment results were summarized and compared to the Lee's local power estimating method. It requires smaller sampling intervals in Lee's method than that of on-line method when it is NLOS propagation, which can be increased from $1.1\lambda$ to $3.7\lambda$. It does not need to make frequent sampling although the length of statistical interval decreases when there is LOS signal, it can be set up to 12$\lambda$ to reduce the measurement overhead. The on-line and dynamic estimation algorithm can be not only used in coverage assessment with lower measurement overhead which is implemented in network planning, but also applied in real-time dynamic channel allocation, power control and adaptive handoff algorithms. Since Rician fading is the generalized model of multi-path fading channels, the algorithm can also be introduced into measurement of other networks.
+
+In this paper, we use an 802.11n compliant, programmable platform to study channel measurement and prediction in mobile 802.11n networks. Our research shows that the existing PDR-RSS model can't capture the channel quality in 802.11n due to the static model and single measurement input. To this end, we propose a simple and effective online PDR-RSS modeling framework, a dynamic model that explicitly utilizes the real-time PDR and RSS jointly. The online framework derives a set of configurations with certain performance guaranteeing, which overcomes the channel quality capturing problem in static PDR-RSS models. Finally, we develop a rate adaption scheme, GradedR, based on online PDR-RSS modeling framework for mobile 802.11n. The experimental results from experiments in our testbeds indicate that GradedR can significantly improve the throughput under a wide range of configurations.
+
