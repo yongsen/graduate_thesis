@@ -8,10 +8,10 @@
 %%==================================================
 
 \chapter{接收信号强度本地均值估计}
-\label{chap:meanestimation}
+\label{appchap:meanestimation}
 
 \section{统计区间长度}
-\label{sec:lengthestimation}
+\label{appsec:lengthestimation}
 
 $R_{p_{r}^2}(\tau)$ it can be derived from (\ref{rician}) and (\ref{ricianPDF}) by approximation\cite{Austin1994} as follows:
 \begin{equation}
@@ -50,42 +50,48 @@ P_e:&=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}
 
 
 \section{采样点数目}
-\label{chap:numberestimation}
+\label{appsec:numberestimation}
 
-Let $x_{0i}=x_i/\sigma$, then $x_{0i} \sim N(\nu \sin \eta,1)$ and its sum subject to the non-central $\chi^2$ distribution, that is $\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$. For $E[\chi_n^2(\lambda)]=n+\lambda$ and $D[\chi_n^2(\lambda)]=2n+4\lambda$, the mean value and variance of $\sum_{i=1}^{N}x_i^2$ can be calculated by:
-\begin{equation}
+根据莱斯分布的特性，$z_i^2$可以表示为$z_i^2=x_i^2+y_i^2$，其中$x_i \sim N(\nu\cos \eta,\sigma^2)$和$y_i \sim N(\nu\sin \eta,\sigma^2)$为统计独立的正态随机变量，$\eta$为任一实数。令$x_{0i}=x_i/\sigma$, then $x_{0i} \sim N(\nu \sin \eta,1)$ and its sum subject to the non-central $\chi^2$ distribution, that is $\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$. For $E[\chi_n^2(\lambda)]=n+\lambda$ and $D[\chi_n^2(\lambda)]=2n+4\lambda$, the mean value and variance of $\sum_{i=1}^{N}x_i^2$ can be calculated by:
+
+\begin{subequations}
+\begin{eqnarray}
 \begin{split}
-    E\left[\sum_{i=1}^{N}x_i^2\right]&=\sigma^2E\left[\sum_{i=1}^{N}x_{0i}^2\right]\\
-    &=\sigma^2E\left[\chi_N^2(\nu^2\cos^2\eta)\right]\\
-    &=\sigma^2\left(N+\nu^2\cos^2\eta\right)
-\end{split}
-\label{app:E_x}
-\end{equation}
-\begin{equation}
+  E\left[\sum_{i=1}^{N}x_i^2\right]&=\sigma^2E\left[\sum_{i=1}^{N}x_{0i}^2\right] \\
+  &=\sigma^2E\left[\chi_N^2(\nu^2\cos^2\eta)\right] \\
+  &=\sigma^2\left(N+\nu^2\cos^2\eta\right)
+\label{app:Ex}
+\end{split} \\
 \begin{split}
-    D\left[\sum_{i=1}^{N}x_i^2\right]&=\sigma^4D\left[\sum_{i=1}^{N}x_{0i}^2\right]\\
-    &=\sigma^4D\left[\chi_N^2(\nu^2\cos^2\eta)\right]\\
-    &=\sigma^4\left(2N+4\nu^2\cos^2\eta\right)
-\label{app:D_x}
+  D\left[\sum_{i=1}^{N}x_i^2\right]&=\sigma^4D\left[\sum_{i=1}^{N}x_{0i}^2\right] \\
+  &=\sigma^4D\left[\chi_N^2(\nu^2\cos^2\eta)\right] \\
+  &=\sigma^4\left(2N+4\nu^2\cos^2\eta\right)
+\label{app:Dx}
 \end{split}
-\end{equation}
+\end{eqnarray}
+\label{app:x}
+\end{subequations}
 and $E[\sum_{i=1}^{N}y_i^2]=\sigma^2(N+\nu^2\sin^2\eta)$, $D[\sum_{i=1}^{N}y_i^2]=\sigma^4(2N+4\nu^2\sin^2\eta)$ can also be calculated in the same way. Then the expectation of $r^2$ and its variance can be calculated by:
-\begin{equation}
+
+\begin{subequations}
+\begin{eqnarray}
 \begin{split}
-    \bar{r^2}&=E\left[\frac{1}{N}\sum_{i=1}^{N}z_i^2\right]=\frac{1}{N}E\left[\sum_{i=1}^{N}(x_i^2+y_i^2)\right]\\
+  \bar{r^2}&=E\left[\frac{1}{N}\sum_{i=1}^{N}z_i^2\right] \\
+    &=\frac{1}{N}E\left[\sum_{i=1}^{N}(x_i^2+y_i^2)\right]\\
     &=\frac{\sigma^2}{N}\left(N+\nu^2\cos^2\eta+N+\nu^2\sin^2\eta\right)\\
     &=\frac{\sigma^2}{N}\left(2N+\nu^2\right)
-\end{split}
-\label{app:E_r2}
-\end{equation}
-\begin{equation}
+  \label{app:Er2}
+\end{split} \\
 \begin{split}
-    \sigma_{\bar{r^2}}^2&=D\left[\frac{1}{N}\sum_{i=1}^{N}z_i^2\right]=\frac{1}{N^2}D\left[\sum_{i=1}^{N}\left(x_i^2+y_i^2\right)\right]\\
+  \sigma_{\bar{r^2}}^2&=D\left[\frac{1}{N}\sum_{i=1}^{N}z_i^2\right] \\
+    &=\frac{1}{N^2}D\left[\sum_{i=1}^{N}\left(x_i^2+y_i^2\right)\right]\\
     &=\frac{\sigma^4}{N^2}\left(2N+4\nu^2\cos^2\eta+2N+4\nu^2\sin^2\eta\right)\\
     &=\frac{\sigma^4}{N^2}\left(4N+4\nu^2\right)
+  \label{app:Dr2}
 \end{split}
-\label{app:D_r2}
-\end{equation}
+\end{eqnarray}
+\label{app:r2}
+\end{subequations}
 
 Then the estimation error can be calculated as follows:
 \begin{equation}
