@@ -51,7 +51,7 @@
 
 \begin{itemize}
   \item \textbf{移动网络时空特性：}
-  移动网络的时空变化特性对PDR的测量精度与开销具有重要影响。无线网络中广泛应用指数加权平均算法（Exponential Weighted Moving Average, EWMA）进行链路质量测试 \cite{ath9k} \cite{minstrel} \cite{wong2008wireless}，一般其参数设置为固定值，比如采样周期一般设置为50ms或100ms，而加权因子一般设置为0.25或0.125。但是网络状态的时空变化会降低EWMA算法的测试精度，尤其当网络运行与较高数据传输速率时。图 \ref{fig:pdrover} 所示的实验结果说明了网络状态变化对PDR测试的影响，当被测PDR发生瞬时变化时，采样周期固定为50ms或100ms的EWMA算法无法获得准确的PDR信息，甚至出现20\%的测试误差。因此有必要对PDR测试算法进行改进，以提高移动网络中链路质量测试精度。现有的针对移动网络链路质量测试方法的工作主要针对RSS的测试 \cite{chen2011ram} \cite{judd2008efficient}。
+  移动网络的时空变化特性对PDR的测量精度与开销具有重要影响。无线网络中广泛应用指数加权平均算法进行链路质量测试 \cite{ath9k} \cite{minstrel} \cite{wong2008wireless}，一般其参数设置为固定值，比如采样周期一般设置为50ms或100ms，而加权因子一般设置为0.25或0.125。但是网络状态的时空变化会降低EWMA算法的测试精度，尤其当网络运行与较高数据传输速率时。图 \ref{fig:pdrover} 所示的实验结果说明了网络状态变化对PDR测试的影响，当被测PDR发生瞬时变化时，采样周期固定为50ms或100ms的EWMA算法无法获得准确的PDR信息，甚至出现20\%的测试误差。因此有必要对PDR测试算法进行改进，以提高移动网络中链路质量测试精度。现有的针对移动网络链路质量测试方法的工作主要针对RSS的测试 \cite{chen2011ram} \cite{judd2008efficient}。
   \item \textbf{MIMO-OFDM系统过渡窗口：}
   MIMO-OFDM系统的多种配置增加了链路质量测试与预测的复杂度。由于802.11n网络采用了多种物理层和链路层技术，同时网络运行时需要在多种配置见进行切换，从而增加了链路质量测试的复杂度，MIMO-OFDM系统中PDR-RSS模型的过渡窗口进一步增加了802.11n网络中PDR-RSS建模的复杂度 \cite{Halperin2010predictable}。如图 \ref{fig:transition} 所示，802.11n网络的PDR-RSS模型存在3-15dB的过渡窗口长度，对于静态建模框架约有34\%的被选配置落入过渡窗口，甚至有8\%的配置位于过渡窗口左侧\footnote{落入过渡窗口表示PDR<$P_{thrh}$=90\%，位于过渡窗口左侧表示PDR<$P_{thrl}$=10\%}。因此有必要针对MIMI-OFDM系统的多配置特性，设计有效的PDR-RSS建模方法与配置选择策略。
 \end{itemize}
@@ -610,3 +610,10 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 
 \section{本章小结}
 \label{sec:conclusion3}
+
+\nocite{10.1109/TMC.2009.87,Ahmed2008Online,Deek:2011,dujovne2010taxonomy,hiertz2010802.11,kim2006accurate,kim2009experimental,kolar2011mesh}
+\nocite{Pelechrinis2010high,perahia2008next,sevani2012sir,zhang2008practical,Zhao2003delivery}
+
+\nocite{Balan:2012:AHD:2348543.2348552,Bhartia:2011:HFD:2030613.2030642,Chai:2012:BES:2348543.2348564,Gollakota:2011:CRS:2018436.2018456}
+\nocite{Gudipati:2011:SAR:2018436.2018455,Magistretti:2011:WRW:2030613.2030619,Magistretti:2010:IML:1859995.1860030,Manweiler:2011:ARH:1999995.2000020}
+\nocite{Nguyen:2011:OCD:2030613.2030624,Qian:2011:PRU:1999995.2000026,Rozner:2010:NNP:1814433.1814445,Sanadhya:2012:ACI:2348543.2348565}

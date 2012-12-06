@@ -62,7 +62,7 @@ William C. Y. Lee在1985年最先提出移动网络信号强度采样算法，�
 \section{无线传播模型}
 \label{sec:channelmodel}
 
-由于高速铁路沿线地形复杂多变，一条线路通常会经过山地、平原、隧道和高架等地形，如图 \ref{fig:terrain} 所示，从而造成GSM-R网络无线传播环境的复杂性。同时图 \ref{fig:terrain} 中可以看出，高速铁路无线传播环境大多较为平坦，同时为了尽量保证GSM-R网络的可靠性，基站位置通常距离高铁线路很近，而且小区半径一般设置为3-6km，从而造成移动终端与基站之间一般存在直射路径（Line of Sight, LOS），因此GSM-R网络的无线传播应该刻画为莱斯衰落。
+由于高速铁路沿线地形复杂多变，一条线路通常会经过山地、平原、隧道和高架等地形，如图 \ref{fig:terrain} 所示，从而造成GSM-R网络无线传播环境的复杂性。同时图 \ref{fig:terrain} 中可以看出，高速铁路无线传播环境大多较为平坦，同时为了尽量保证GSM-R网络的可靠性，基站位置通常距离高铁线路很近，而且小区半径一般设置为3-6km，从而造成移动终端与基站之间一般存在直射LOS路径，因此GSM-R网络的无线传播应该刻画为莱斯衰落。
 
 \begin{figure}[!htp]
 \centering
@@ -180,7 +180,7 @@ P_{r}(x) = S(x) + H(x)
 \subsection{信道参数估计}
 \label{sec:estimation}
 
-对于莱斯衰落信道的参数估计已有大量相关工作，包括基于学习训练机制 \cite{bjornson2010framework}、最大似然估计（Maximum Likelihood, ML） \cite{sijbers1998maximum} 以及期望最大化算法（Expectation Maximization, EM）\cite{marzetta1995algorithm}。由于EM算法通过迭代方式进行参数估计，本文采用EM算法进行莱斯参数估计，以充分利用历史信息提高测试精度并降低测试开销。EM算法中莱斯衰落因子$\nu^2$和$\sigma^2$通过其上一时刻估计值与当前采样信号计算获得，如式（\ref{equa:EM}）所示
+对于莱斯衰落信道的参数估计已有大量相关工作，包括基于学习训练机制 \cite{bjornson2010framework}、最大似然估计 \cite{sijbers1998maximum} 以及期望最大化算法\cite{marzetta1995algorithm}。由于EM算法通过迭代方式进行参数估计，本文采用EM算法进行莱斯参数估计，以充分利用历史信息提高测试精度并降低测试开销。EM算法中莱斯衰落因子$\nu^2$和$\sigma^2$通过其上一时刻估计值与当前采样信号计算获得，如式（\ref{equa:EM}）所示
 \begin{subequations}
   \begin{eqnarray}
     \nu_{k+1}&=&\frac{1}{N}\sum_{i=1}^{N}\frac{I_{1}\left(\frac{\nu_{k}z_{i}}{\sigma_k^2}\right)}{I_{0}\left(\frac{\nu_{k}z_{i}}{\sigma_k^2}\right)}z_i \\
@@ -295,7 +295,7 @@ GSM-R网络通信质量测试系统主要完成物理指标的实时测量，同
 \begin{figure}[!htp]
 %\onelinecaptionsfalse
 \centering
-    \includegraphics[width=5in]{chap2/basic.pdf}
+    \includegraphics[width=5in]{chap2/softwarefunction.pdf}
 \bicaption[fig:umsystem]{GSM-R网络空中接口测试系统}{GSM-R网络空中接口测试系统}{Fig}{Um interface monitoring system for GSM-R networks}
 \end{figure}
 
@@ -407,7 +407,7 @@ GSM-R网络空中接口测试系统的基本功能如图 \ref{fig:umsoftwarefunc
 \begin{figure}[!htp]
 %\onelinecaptionsfalse
 \centering
-    \includegraphics[width=4in]{chap2/softwarefunction.pdf}
+    \includegraphics[width=4in]{chap2/function.pdf}
 \bicaption[fig:umsoftwarefunc]{GSM-R网络空中接口测试系统软件结构}{GSM-R网络空中接口测试系统软件结构}{Fig}{Software architecture of Um interface monitoring system for GSM-R networks}
 \end{figure}
 
@@ -513,4 +513,10 @@ Open  & 10 &  18 & 4 & 12 &  1 & 12.0 & 4.000 & 24.00 & 19.20 & 16.00\\
 
 本章讨论了在莱斯衰落环境下，GSM-R网络接收信号强度的动态采样算法，该算法通过采样数据结合衰落参数历史值，对当前衰落参数进行估计，确定不同衰落参数条件下的统计区间与采样点数。在城区、山地、丘陵等密集区域，由于多径衰落现象加重，且直射路径功率所占比例较低，需要进行较为频繁的采样与统计，确保统计区间$2L \leq 20m$，采样间隔$\Delta d \leq 0.3m$；在平原、高架桥等开阔区域，移动台接收功率较大，且一般存在较大比例的直射路径功率，在同样的统计区间内只需做较少的采样，保证统计区间$2L \leq 50m$，采样间隔$\Delta d \leq 1.5m$，便可以满足本地均值的准确性要求。对应列车运行速度在$300km/h$ 时，采样时间间隔为$2.0ms$到$18.0ms$时，才能够保证测量数据的可靠性。在实际工程应用中的GSM-R网络无线覆盖测量，一般采用采样间隔$\Delta d = 4cm$、统计区间$10m \leq 2L \leq 100m$的方法，参照本章关于莱斯衰落信道下采样算法的推导，可以在高铁线路中的开阔区域适当提高采样间隔，从而在确保数据可靠性的同时降低测量开销；另一方面针对GPS测距触发方式的测量方法，利用高速铁路列车运行速度相对固定的特点，结合列车运行速度、当前采样数据及衰落参数历史数据，采用时间触发的方式进行采样间隔与统计区间的确定。
 
-\nocite{*}
+\nocite{4536668,PrietoGMVA08,flammini2009quantitative,4299714,wubben2011lattice}
+\nocite{tepedelenlio?lu2001estimation}
+\nocite{gopal2009power}
+\nocite{goldsmith1994error}
+\nocite{aja2008restoration}
+\nocite{saleh1987statistical}
+\nocite{sijbers1998maximum}\nocite{devore2000atr}\nocite{mousa2010estimation}

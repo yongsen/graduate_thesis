@@ -79,8 +79,8 @@
 \makeenglishtitle
 
 % 论文原创性声明和使用授权
-\makeDeclareOriginal
-\makeDeclareAuthorization
+%\makeDeclareOriginal
+%\makeDeclareAuthorization
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 前言
@@ -92,10 +92,10 @@
 
 % 目录
 \tableofcontents
-% 表格索引
-\listoftables
 % 插图索引
 \listoffigures
+% 表格索引
+\listoftables
 
 \addcontentsline{toc}{chapter}{\listfigurename} %将表格索引加入全文目录
 \addcontentsline{toc}{chapter}{\listtablename}  %将图索引加入全文目录
@@ -142,7 +142,7 @@
 % 参考文献
 % 使用 BibTeX
 % 包含参考文献文件.bib
-\bibliography{reference/phy,reference/mac,reference/app}
+\bibliography{reference/phy,reference/mac}
 
 % 个人简历(硕士学位论文没有个人简历要求)
 %\include{body/resume}

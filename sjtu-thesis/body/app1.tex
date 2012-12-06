@@ -13,12 +13,12 @@
 \section{统计区间长度}
 \label{appsec:lengthestimation}
 
-$R_{p_{r}^2}(\tau)$ it can be derived from (\ref{rician}) and (\ref{ricianPDF}) by approximation\cite{Austin1994} as follows:
+由式（\ref{equa:rician}）和式（\ref{equa:ricianPDF}）并通过近似 \cite{Austin1994} 可以得到莱斯衰落的自相关函数$R_{p_{r}^2}(\tau)$
 \begin{equation}
     R_{p_{r}^2}(\tau)=4\sigma^2\left[J_0^2\left(\frac{2\pi}{\lambda}\tau\right)+2KJ_0\left(\frac{2\pi}{\lambda}\tau\right)\cos\left(\frac{2\pi}{\lambda}\eta\tau\right)\right]
 \label{app:autocovariance}
 \end{equation}
-where $J_0(\cdot)$ is the zero-order Bessel function, and $\eta=\cos\theta_0$. Then $\sigma_{\hat{s}}^2$ can be calculated by substituting (\ref{app:autocovariance}) into (\ref{shadow_variance}).
+其中$J_0(\cdot)$为零阶贝塞尔函数，$\eta$为中间变量，即$\eta=\cos\theta_0$。然后$\sigma_{\hat{s}}^2$可以通过将式（\ref{app:autocovariance}）带入式（\ref{shadowvariance}）计算得到，如式（\ref{app:shadowsigma}）所示。
 %\begin{equation}
 %\begin{split}
 %\sigma_{\hat{s}}^{2}=&\frac{4\sigma^2}{L}\int\limits_{0}^{2L}(1-\frac{\tau}{2L})\left[J_0^2\left(\frac{2\pi}{\lambda}\tau\right)+2KJ_0\left(\frac{2\pi}{\lambda}\tau\right)\cos\left(\frac{2\pi}{\lambda}\eta\tau\right)\right]d\tau\\
@@ -31,14 +31,14 @@ where $J_0(\cdot)$ is the zero-order Bessel function, and $\eta=\cos\theta_0$. T
 \sigma_{\hat{s}}^{2}=&\frac{4\sigma^2}{L}\int\limits_{0}^{2L}\frac{2L-\tau}{2L}[J_0^2(\frac{2\pi}{\lambda}\tau)+2KJ_0(\frac{2\pi}{\lambda}\tau)\cos(\frac{2\pi}{\lambda}\eta\tau)]d\tau\\
 =&\frac{\hat{s}^2(2L-\lambda)\lambda}{2(1+K)^{2}L^2}\int\limits_0^{\frac{2L}{\lambda}}[J_0^2(2\pi \rho)+2KJ_0(2\pi \rho)\cos(2\pi \eta)]\rho d\rho
 \end{split}
-\label{app:shadow_sigma}
+\label{app:shadowsigma}
 \end{equation}
-where $\rho=\tau/\lambda$ is the intermediate valuable and $\sigma_{\hat{s}}^2\rightarrow0$ as $2L/\lambda\rightarrow\infty$. $\hat{s}$ can be considered as Gaussian distributed when $2L$ is large enough. Then $\sigma_{\hat{s}}^2$ can be represented by the simple form as follows:
+其中$\rho=\tau/\lambda$为中间变量，且当$2L/\lambda\rightarrow\infty$时，$\sigma_{\hat{s}}^2\rightarrow0$。当$2L$足够长时$\hat{s}$可以认为服从高斯分布，则$\sigma_{\hat{s}}^2$可以简化为
 \begin{equation}
 \sigma_{\hat{s}}^2=\frac{2(n-1)}{n^2(1+K)^2}\int\limits_0^n g(K;\rho) d\rho
 \label{app:sigmareplace}
 \end{equation}
-where $n:=2L/\lambda$ represents the relationship between statistical intervals $2L$ and wireless prorogation wavelength $\lambda$, $g(K;\rho):=[J_0^2(2\pi \rho)+2KJ_0(2\pi \rho)\cos(2\pi \eta)]\rho$ is the intermediate function. Then the estimation error can be calculated as follows:
+其中$n:=2L/\lambda$代表统计区间长度$2L$与无线信号波长$\lambda$的比值，$g(K;\rho):=[J_0^2(2\pi \rho)+2KJ_0(2\pi \rho)\cos(2\pi \eta)]\rho$。则均一化估计误差可以表示为
 \begin{equation}
 \begin{split}
 P_e:&=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}}\right) \\
@@ -52,8 +52,7 @@ P_e:&=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}
 \section{采样点数目}
 \label{appsec:numberestimation}
 
-根据莱斯分布的特性，$z_i^2$可以表示为$z_i^2=x_i^2+y_i^2$，其中$x_i \sim N(\nu\cos \eta,\sigma^2)$和$y_i \sim N(\nu\sin \eta,\sigma^2)$为统计独立的正态随机变量，$\eta$为任一实数。令$x_{0i}=x_i/\sigma$, then $x_{0i} \sim N(\nu \sin \eta,1)$ and its sum subject to the non-central $\chi^2$ distribution, that is $\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$. For $E[\chi_n^2(\lambda)]=n+\lambda$ and $D[\chi_n^2(\lambda)]=2n+4\lambda$, the mean value and variance of $\sum_{i=1}^{N}x_i^2$ can be calculated by:
-
+根据莱斯分布的特性，$z_i^2$可以表示为$z_i^2=x_i^2+y_i^2$，其中$x_i \sim N(\nu\cos \eta,\sigma^2)$和$y_i \sim N(\nu\sin \eta,\sigma^2)$为统计独立的正态随机变量，$\eta$为任一实数。令$x_{0i}=x_i/\sigma$，则$x_{0i} \sim N(\nu \sin \eta,1)$且其和服从非中心$\chi^2$分布，即$\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$。由于$E[\chi_n^2(\lambda)]=n+\lambda$且$D[\chi_n^2(\lambda)]=2n+4\lambda$，则$\sum_{i=1}^{N}x_i^2$的均值与方差可以表示为
 \begin{subequations}
 \begin{eqnarray}
 \begin{split}
@@ -71,8 +70,7 @@ P_e:&=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}
 \end{eqnarray}
 \label{app:x}
 \end{subequations}
-and $E[\sum_{i=1}^{N}y_i^2]=\sigma^2(N+\nu^2\sin^2\eta)$, $D[\sum_{i=1}^{N}y_i^2]=\sigma^4(2N+4\nu^2\sin^2\eta)$ can also be calculated in the same way. Then the expectation of $r^2$ and its variance can be calculated by:
-
+同样的，$E[\sum_{i=1}^{N}y_i^2]=\sigma^2(N+\nu^2\sin^2\eta)$，$D[\sum_{i=1}^{N}y_i^2]=\sigma^4(2N+4\nu^2\sin^2\eta)$可以通过以上计算得到。则$r^2$及其方差分别表示为
 \begin{subequations}
 \begin{eqnarray}
 \begin{split}
@@ -92,8 +90,7 @@ and $E[\sum_{i=1}^{N}y_i^2]=\sigma^2(N+\nu^2\sin^2\eta)$, $D[\sum_{i=1}^{N}y_i^2
 \end{eqnarray}
 \label{app:r2}
 \end{subequations}
-
-Then the estimation error can be calculated as follows:
+从而计算得到采样点数的均一化误差，如式（\ref{app:Q_e}）所示
 \begin{equation}
 \begin{split}
     Q_e&=10 \log_{10}\left(\frac{\bar{r^2}+\sigma_{\bar{r^2}}}{\bar{r^2}}\right)\\
