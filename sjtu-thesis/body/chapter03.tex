@@ -611,6 +611,9 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \section{本章小结}
 \label{sec:conclusion3}
 
+本章主要讨论在移动网络中，MIMO-OFDM无线系统的链路质量测试与建模问题。本文首先提出基于动态滑动窗口平均的PDR测试算法，通过数据包收发事件驱动确定采样间隔，从而避免多配置对PDR测试的影响，同时利用当前PDR信息降低测试开销。然后以PDR测试算法为基础，提出在线PDR-RSS建模框架，通过PDR-RSS模型数据库结合实时更新，解决MIMO-OFDM系统多配置带来的过渡窗口问题。以上的PDR测试算法与在线建模框架，通过同时应用物理层指标RSS与链路层指标PDR，有效地解决了移动性及多配置对链路质量测试与建模的影响。最后通过速率控制算法设计及其系统实现，对以上算法进行实验评估，评估结果表明本文提出的PDR测试算法能够提升89\%的测试精度，同时结合在线建模框架能够在不同MIMO配置下实现40\%的吞吐量提升。
+configurations.
+
 \nocite{10.1109/TMC.2009.87,Ahmed2008Online,Deek:2011,dujovne2010taxonomy,hiertz2010802.11,kim2006accurate,kim2009experimental,kolar2011mesh}
 \nocite{Pelechrinis2010high,perahia2008next,sevani2012sir,zhang2008practical,Zhao2003delivery}
 

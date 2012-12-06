@@ -45,10 +45,9 @@ William C. Y. Lee在1985年最先提出移动网络信号强度采样算法，�
 
 \begin{itemize}
   \item \textbf{高速移动特性}
-  GSM-R网络处于高速运行状态，相同情况下需要对接收信号强度进行更为频繁的采样，同时不能够影响到网络的正常通信。
+  GSM-R网络处于高速运行状态，相同情况下需要对接收信号强度进行更为频繁的采样，对于900MMHz的通信频率，Lee氏采样算法的采样间隔为36cm，工程应用时一般选择4cm，在300km/h的运行速度下需要采样时间间隔达到432/48ms，而如此高的采样频率应用到在线测试时会严重影响到网络的正常通信。因此需要利用信道状态的时空相关性降低测试开销，同时满足高速移动条件下的测试精度。
   \item \textbf{无线传播环境}
-  GSM-R网络一般存在直射路径，因此应当采用莱斯信道对GSM-R网络的无线传播环境进行刻画，由于莱斯信道衰落参数及其估计算法的复杂性，
-  The basic consideration in local power estimation is the sampling frequency which is determined by the length of statistical intervals and number of averaging samples. The received signal strength of wireless propagation is influenced by the environments, so the local mean power estimation should be dynamic to the networks status, especially for GSM-R networks. Fig.~\ref{fig:time} demonstrates the time varying and location difference characteristics of received signal strength $P_r(x)$ in mobile networks, which indicates the facts that Fig.~\ref{fig:timevary}: certain received signal strength carve contains both long-term and short-term fluctuation; Fig.~\ref{fig:cdfrss}: the overall received signal strength shows different characteristics for different routes. Since the received signal strength $P_r(x)$ is changing in both large and small time scale, the local mean power estimation should also be adaptive to this fluctuation.
+  GSM-R网络一般存在直射路径，因此应当采用莱斯信道对GSM-R网络的无线传播环境进行刻画。现有工作主要针对瑞利衰落信道，直接应用与GSM-R 网络中时无法获得应有的测试精度。同时瑞利衰落情况下给出的采样参数为固定值，不能适应高速铁路复杂的无线传播环境。因此需要对莱斯衰落信道下的信道状态采样与估计进行分析，以适应高速铁路的无线传播环境。
 \end{itemize}
 
 \begin{figure}[!htp]
@@ -125,7 +124,7 @@ P_{r}(x) = S(x) + H(x)
     M(x)= K_1+K_2\log(x)
 \label{equa:pathloss}
 \end{equation}
-其中$M(x):=20\log(m(x))$为$m(x)$的对数形式，$K_1$主要与基站发射功率、天线增益及线路损耗有关，$K_2$为地形因子并随着无线传播环境的不同而变化 \cite{hata1980empirical}\cite{medeisis2000use}。$S(x)$的空间相关性，即其自相关函数，主要与地形因素有关，表示为式（\ref{equa:multipath}） \cite{gudmundson1991correlation}。
+其中$M(x):=20\log(m(x))$为$m(x)$的对数形式，$K_1$主要与基站发射功率、天线增益及线路损耗有关，$K_2$为地形因子并随着无线传播环境的不同而变化 \cite{hata1980empirical} \cite{medeisis2000use}。$S(x)$的空间相关性，即其自相关函数，主要与地形因素有关，表示为式（\ref{equa:multipath}） \cite{gudmundson1991correlation}。
 \begin{equation}
     R_{s}(x) = \sigma_{s}^2\exp\left(-\frac{\Delta x}{x_0}\right)
 \label{equa:multipath}
@@ -225,13 +224,6 @@ P_e:=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}}
 \label{equa:perror}
 \end{equation}
 
-将式（\ref{equa:shadowmean}）和式（\ref{equa:shadowvariance}）带入式（\ref{equa:perror}）中，并按照附录\ref{appsec:lengthestimation}求解积分方程，归一化误差$P_e$可以表示为
-\begin{equation}
-P_e = 10 \log_{10}\left(\frac{\frac{2\sigma^2+\nu^2}{2\sigma^2}n+\sqrt{2(1+n)\int\limits_0^n g\left(\frac{\nu^2}{2\sigma^2};\rho\right) d\rho}}{\frac{2\sigma^2+\nu^2}{2\sigma^2}n-\sqrt{2(1+n)\int\limits_0^n g\left(\frac{\nu^2}{2\sigma^2};\rho\right) d\rho}}\right)
-\label{equa:Perror}
-\end{equation}
-其中$\nu$和$\sigma$为莱斯衰落信道参数。令归一化误差等于1，即$P_e=1dB$，则可以得到合适的统计区间长度$2L$与信号波长$\lambda$及衰落参数$\nu^2$和$\sigma^2$的关系式，即$2L=f_{2L}(\lambda;\nu,\sigma)$或$2L/\lambda=f_{2L/\lambda}(\nu,\sigma)$，如图 \ref{fig:length} 所示。
-
 \begin{figure}[!htp]
   \centering
   \subfigure[$\sigma=1$]{
@@ -253,6 +245,13 @@ P_e = 10 \log_{10}\left(\frac{\frac{2\sigma^2+\nu^2}{2\sigma^2}n+\sqrt{2(1+n)\in
   \bicaption[fig:length]{统计区间长度}{统计区间长度}{Fig}{Proper Length of Statistical Intervals}
 \end{figure}
 
+将式（\ref{equa:shadowmean}）和式（\ref{equa:shadowvariance}）带入式（\ref{equa:perror}）中，并按照附录\ref{appsec:lengthestimation}求解积分方程，归一化误差$P_e$可以表示为
+\begin{equation}
+P_e = 10 \log_{10}\left(\frac{\frac{2\sigma^2+\nu^2}{2\sigma^2}n+\sqrt{2(1+n)\int\limits_0^n g\left(\frac{\nu^2}{2\sigma^2};\rho\right) d\rho}}{\frac{2\sigma^2+\nu^2}{2\sigma^2}n-\sqrt{2(1+n)\int\limits_0^n g\left(\frac{\nu^2}{2\sigma^2};\rho\right) d\rho}}\right)
+\label{equa:Perror}
+\end{equation}
+其中$\nu$和$\sigma$为莱斯衰落信道参数。令归一化误差等于1，即$P_e=1dB$，则可以得到合适的统计区间长度$2L$与信号波长$\lambda$及衰落参数$\nu^2$和$\sigma^2$的关系式，即$2L=f_{2L}(\lambda;\nu,\sigma)$或$2L/\lambda=f_{2L/\lambda}(\nu,\sigma)$，如图 \ref{fig:length} 所示。
+
 \subsection{采样点数}
 \label{sec:number}
 
@@ -271,19 +270,19 @@ Q_e=10 \log_{10}\left(\frac{\bar{r^2}+\sigma_{\bar{r^2}}}{\bar{r^2}}\right)
 \label{equa:qerror}
 \end{equation}
 
-根据附录 \ref{appsec:numberestimation} 中的计算与推导，$Q_e$可以表示为
-\begin{equation}
-    Q_e=10 \log_{10}\left(\frac{2N+\nu^2+2\sqrt{N+\nu^2}}{2N+\nu^2}\right)
-\label{equa:Qerror}
-\end{equation}
-其中$\nu$和$\sigma$为莱斯衰落参数，通过如式（\ref{equa:EM}）中EM算法计算得到。显然采样点数目只与莱斯衰落参数$\nu$有关，即$N=f_{N}(\nu)$，如图 \ref{fig:nu} 所示。
-
 \begin{figure}[!htp]
 \centerline{
 \includegraphics[width=4.0in]{chap2/nu1.pdf}
 }
 \bicaption[fig:nu]{采样点数}{采样点数}{Fig}{Required Number of Averaging Samples}
 \end{figure}
+
+根据附录 \ref{appsec:numberestimation} 中的计算与推导，$Q_e$可以表示为
+\begin{equation}
+    Q_e=10 \log_{10}\left(\frac{2N+\nu^2+2\sqrt{N+\nu^2}}{2N+\nu^2}\right)
+\label{equa:Qerror}
+\end{equation}
+其中$\nu$和$\sigma$为莱斯衰落参数，通过如式（\ref{equa:EM}）中EM算法计算得到。显然采样点数目只与莱斯衰落参数$\nu$有关，即$N=f_{N}(\nu)$，如图 \ref{fig:nu} 所示。
 
 接收信号强度采样频率$\Delta d$由$2L/N$计算获得，即$\Delta d=f_{2L}(\lambda;\nu,\sigma)/f_{N}(\nu)=f_{\Delta d}(\lambda;\nu,\sigma)$。 由于信号波长$\lambda$在通信过程中一般保持不变，因此$\Delta d$与莱斯衰落参数$\nu$和$\sigma$密切相关。
 
@@ -292,13 +291,6 @@ Q_e=10 \log_{10}\left(\frac{\bar{r^2}+\sigma_{\bar{r^2}}}{\bar{r^2}}\right)
 
 GSM-R网络通信质量测试系统主要完成物理指标的实时测量，同时对网络链路质量进行统计与分析，包括实时测试与离线分析。GSM-R网络空中接口测试系统实现对GSM-R网络通信质量的在线实时与离线综合测试，如图 \ref{fig:umsystem} 所示。在线测试实现对GSM-R网络通信质量的实时监测，同时在网络出现故障时给出预警信息；离线测试对GSM-R网络性能进行统计与分析，给出网络的综合性能评估，并提出参数调整建议。同时测试指标包含网络物理层、链路层与业务层各项指标，实现对GSM-R网络通信质量的全面测试，保证高铁系统的安全稳定高速运行。
 
-\begin{figure}[!htp]
-%\onelinecaptionsfalse
-\centering
-    \includegraphics[width=5in]{chap2/softwarefunction.pdf}
-\bicaption[fig:umsystem]{GSM-R网络空中接口测试系统}{GSM-R网络空中接口测试系统}{Fig}{Um interface monitoring system for GSM-R networks}
-\end{figure}
-
 本章首先引入GSM-R网络空中接口测试系统的基本结构，包括硬件平台与软件开发，然后分析动态测试算法的设计与实现，最后对系统的基本功能进行简单介绍。
 
 \subsection{硬件平台}
@@ -306,14 +298,14 @@ GSM-R网络通信质量测试系统主要完成物理指标的实时测量，同
 
 GSM-R网络测试系统由无线收发模块、通信协议处理模块、数据分析处理模块构成，如图 \ref{fig:umhardware} 所示，其中无线收发模块完成GSM-R网络通信信号采集，通信协议处理模块主要对采集到的网络信令进行解析，数据分析处理模块负责对网络各项性能指标进行统计与分析。
 
+测试系统中心处理器模块为美国RTD公司的CME137686LX-W cpuModules™，通信协议处理模块与射频收发模块选择德国Triorail公司的GSM-R网络收发模块TRM:3a，外加RTD公司的GSM-R网络收发模块外围开发板COM16155RER-1，上述模块通过PC/104与RTD的电源模块VPWR104HR-L50W相连接，从而实现GSM-R 网络信息收发功能。
+
 \begin{figure}[!htp]
 %\onelinecaptionsfalse
 \centering
-    \includegraphics[width=5in]{chap2/hardware.pdf}
-\bicaption[fig:umhardware]{GSM-R网络空中接口测试系统硬件组成}{GSM-R网络空中接口测试系统硬件组成}{Fig}{Hardware components of Um interface monitoring system for GSM-R networks}
+    \includegraphics[width=5in]{chap2/softwarefunction.pdf}
+\bicaption[fig:umsystem]{GSM-R网络空中接口测试系统}{GSM-R网络空中接口测试系统}{Fig}{Um interface monitoring system for GSM-R networks}
 \end{figure}
-
-测试系统中心处理器模块为美国RTD公司的CME137686LX-W cpuModules™，通信协议处理模块与射频收发模块选择德国Triorail公司的GSM-R网络收发模块TRM:3a，外加RTD公司的GSM-R网络收发模块外围开发板COM16155RER-1，上述模块通过PC/104与RTD的电源模块VPWR104HR-L50W相连接，从而实现GSM-R 网络信息收发功能。
 
 GSM-R网络空中接口测试系统的硬件平台由PC/104总线实现模块间通信，主要由以下三部分组成：
 \begin{itemize}
@@ -325,6 +317,13 @@ GSM-R网络空中接口测试系统的硬件平台由PC/104总线实现模块间
   电源模块采用RTD的电源模块VPWR104HR-L50W，输入电压20-28VDC，输出电压-12V到+19V，工作温度-40到+85C$\circ$，能够满足高速铁路的特殊环境要求。
 \end{itemize}
 
+\begin{figure}[!htp]
+%\onelinecaptionsfalse
+\centering
+    \includegraphics[width=5in]{chap2/hardware.pdf}
+\bicaption[fig:umhardware]{GSM-R网络空中接口测试系统硬件组成}{GSM-R网络空中接口测试系统硬件组成}{Fig}{Hardware components of Um interface monitoring system for GSM-R networks}
+\end{figure}
+
 上述各模块符合工业级标准，性能稳定并能够工作在各种恶劣环境，同时PC/104作为工业级总线能够保证系统的实时性与可靠性。
 
 \subsection{软件开发}
@@ -335,30 +334,65 @@ GSM-R网络空中接口测试软件平台的开发基于Visual Studio 2008开发
 \begin{figure}[!htp]
 %\onelinecaptionsfalse
 \centering
-    \includegraphics[width=3in]{chap2/softwarecopyright.pdf}
+    \includegraphics[width=3.2in]{chap2/softwarecopyright.pdf}
 \bicaption[fig:copyright]{GSM-R网络空中接口测试系统启动界面}{GSM-R网络空中接口测试系统启动界面}{Fig}{Software starting of Um interface monitoring system for GSM-R networks}
 \end{figure}
 
 \begin{figure}[!htp]
 %\onelinecaptionsfalse
 \centering
-    \includegraphics[width=4.5in]{chap2/softwarestart.pdf}
+    \includegraphics[width=5in]{chap2/softwarestart.pdf}
 \bicaption[fig:interface]{GSM-R网络空中接口测试系统软件界面}{GSM-R网络空中接口测试系统软件界面}{Fig}{Software interface of Um interface monitoring system for GSM-R networks}
 \end{figure}
+
+该软件平台通过AT命令实现与GSM-R通信模块间的数据交换，主要实现以下信息的测试与分析：
+
+\begin{table}[!htp]
+\renewcommand{\arraystretch}{1}
+\bicaption[tab:rxlev]{RxLev映射关系}{RxLev映射关系}{Table}{Mapping relation of RxLev}
+\centering
+\begin{threeparttable}[b]
+\begin{tabular}{cc}
+\hline
+0        & RX < -110 dBm \\
+\hline
+1        & -110 ≤ RX < -109 dBm \\
+\hline
+2        & -109 ≤ RX < -108 dBm \\
+\hline
+3        & -108 ≤ RX < -107 dBm \\
+\hline
+--- ---      & --- --- \\
+\hline
+62       & -49 ≤ RX < -48 dBm \\
+\hline
+63       & RX > -48 dBm \\
+\hline
+$\leq$17 & 信号强度不满足室外覆盖要求 \\
+\hline
+$\leq$27 & 信号强度不满足室内覆盖要求 \\
+\hline
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\begin{enumerate}
+  \item 无线信号强度（RxLev）：接收到信号电平强度的统计参数，作为功率控制和切换过程的依据，以dBm为单位，接收信号电平被映射到0$\sim$63 之间的某个RxLev值，如表 \ref{tab:rxlev} 所示。
+  \item 绝对无线频率信道数（ARFCN）：跳频序列的载频号，描述测量数据中的无线载波的变化，阐述了空中接口上下行无线链路。
+  \item 接收信号强度指示（RSSI）：接收信号强度水平，在这里表示的是在广播控制信道上的接收信号强度水平。
+  \item 接收信号强度（dBm）：接收信号强度，以dBm为单位，分为广播控制信道和业务信道两种情况。
+  \item 小区重选系数（C1\&C2）：C1是小区选择时的判断标注，C2是可选参数，仅用于小区重选，若C2未被广播，则使用C1做重选参数。
+  \item 时间提前量（TA）：补偿电波传输延迟，以提高信道编解码效率。由基站根据测量报告确定，然后发送给手机，当移动台接近基站时减小时间提前量；而当移动台远离小区中心时加大时间提前量。
+  \item 信道类型（ChMod）：业务信道的传输模式。业务信道承载话音或用户数据，全速率业务信道载有总速率为22.8kbit/s的信息。
+  \item 功率等级（PWR）：分为接入信道最大功率和当前业务信道的功率。
+  \item 基站识别码（BSIC）：由基站色码和网络色码组成，用于采用相同载频号码且位置相邻的不同基站的识别。其中网络色码识别相邻国家不同网络，基站色码识别相同载频的相邻基站。
+  \item 小区编号（Cell ID）与信道编号（chann）：小区编号是区分与同一个基站控制器相连的不同基站收发台，信道编号为广播控制信道载频号。
+\end{enumerate}
 
 \subsection{算法实现}
 \label{sec:alggsmr}
 
 GSM-R网络接收信号强度在线测试的伪代码如算法 \ref{alg:online} 所示，主要基于第 \ref{sec:dynamic} 章的推导与计算。首先通过EM算法进行莱斯衰落参数估计，实现莱斯衰落因子$\nu_0$和$\sigma_0$的初始化，此时的信号采样参数去瑞利衰落时的参数设置，即统计区间$2L=40\lambda$，采样点数$N=36$。然后在每一轮采样周期基于上一轮估计结果和当前采样信息，对衰落因子$\nu_k$和$\sigma_k$进行实时更新，同时确定下一轮采样参数$2L$和$N$。最后通过统计区间长度和采样点数计算得到采样间隔$\Delta d=2L/N$，并开始新一轮的信号采样与参数估计。
-
-\begin{figure}[!htp]
-%\onelinecaptionsfalse
-\centering
-    \includegraphics[width=3.6in]{chap2/umframework.pdf}
-\bicaption[fig:umframework]{信道状态估计算法与实现}{信道状态估计算法与实现}{Fig}{Estimation framework and algorithm implementation}
-\end{figure}
-
-GSM-R网络信道动态测试为上层应用提供准确的网络状态信息，如图 \ref{fig:umframework} 所示，测试系统首先通过GSM-R收发模块，获得接收信号强度的原始信息；然后由动态采样算法进行数据处理与参数估计，并提供当前网络状态信息，包括物理层信道状态与链路质量信息；同时系统根据历史信息对网络状态进行预测，在信号强度持续下降时给出预警信息；最后动态测试算法将所有原始数据及网络状态信息提供给软件界面及数据库，用于显示当前网络状态信息，或进行网络性能的分析与评估，包括切换性能分析与网络优化。
 
 \begin{algorithm}[!htp]
 \floatname{algorithm}{算法}
@@ -398,6 +432,15 @@ GSM-R网络信道动态测试为上层应用提供准确的网络状态信息，
 \EndIf
 \end{algorithmic}
 \end{algorithm}
+
+GSM-R网络信道动态测试为上层应用提供准确的网络状态信息，如图 \ref{fig:umframework} 所示，测试系统首先通过GSM-R收发模块，获得接收信号强度的原始信息；然后由动态采样算法进行数据处理与参数估计，并提供当前网络状态信息，包括物理层信道状态与链路质量信息；同时系统根据历史信息对网络状态进行预测，在信号强度持续下降时给出预警信息；最后动态测试算法将所有原始数据及网络状态信息提供给软件界面及数据库，用于显示当前网络状态信息，或进行网络性能的分析与评估，包括切换性能分析与网络优化。
+
+\begin{figure}[!htp]
+%\onelinecaptionsfalse
+\centering
+    \includegraphics[width=4in]{chap2/umframework.pdf}
+\bicaption[fig:umframework]{信道状态估计算法与实现}{信道状态估计算法与实现}{Fig}{Estimation framework and algorithm implementation}
+\end{figure}
 
 \subsection{基本功能}
 \label{sec:function}
@@ -486,7 +529,7 @@ Open  & 10 &  18 & 4 & 12 &  1 & 12.0 & 4.000 & 24.00 & 19.20 & 16.00\\
 %\cline{1-11}
 \end{tabular}
 \begin{tablenotes}
-\item[*] \small Caculated by Lee's method of local mean power estimation in the case of Rayleigh fading
+\item[*] \small 在瑞利衰落信道情况下，通过Lee氏采样算法的计算结果
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -511,11 +554,11 @@ Open  & 10 &  18 & 4 & 12 &  1 & 12.0 & 4.000 & 24.00 & 19.20 & 16.00\\
 \section{本章小结}
 \label{sec:conclusion2}
 
-本章讨论了在莱斯衰落环境下，GSM-R网络接收信号强度的动态采样算法，该算法通过采样数据结合衰落参数历史值，对当前衰落参数进行估计，确定不同衰落参数条件下的统计区间与采样点数。在城区、山地、丘陵等密集区域，由于多径衰落现象加重，且直射路径功率所占比例较低，需要进行较为频繁的采样与统计，确保统计区间$2L \leq 20m$，采样间隔$\Delta d \leq 0.3m$；在平原、高架桥等开阔区域，移动台接收功率较大，且一般存在较大比例的直射路径功率，在同样的统计区间内只需做较少的采样，保证统计区间$2L \leq 50m$，采样间隔$\Delta d \leq 1.5m$，便可以满足本地均值的准确性要求。对应列车运行速度在$300km/h$ 时，采样时间间隔为$2.0ms$到$18.0ms$时，才能够保证测量数据的可靠性。在实际工程应用中的GSM-R网络无线覆盖测量，一般采用采样间隔$\Delta d = 4cm$、统计区间$10m \leq 2L \leq 100m$的方法，参照本章关于莱斯衰落信道下采样算法的推导，可以在高铁线路中的开阔区域适当提高采样间隔，从而在确保数据可靠性的同时降低测量开销；另一方面针对GPS测距触发方式的测量方法，利用高速铁路列车运行速度相对固定的特点，结合列车运行速度、当前采样数据及衰落参数历史数据，采用时间触发的方式进行采样间隔与统计区间的确定。
+本章讨论了在莱斯衰落环境下，GSM-R网络接收信号强度的动态采样算法，解决高速移动性及传播环境复杂性对信道采样的不利影响。该算法通过采样数据结合衰落参数历史值，对当前衰落参数进行估计，确定不同衰落参数条件下的统计区间与采样点数。在城区、山地、丘陵等密集区域，由于多径衰落现象加重，且直射路径功率所占比例较低，需要进行较为频繁的采样与统计，确保统计区间$2L \leq 20m$，采样间隔$\Delta d \leq 0.3m$；在平原、高架桥等开阔区域，移动台接收功率较大，且一般存在较大比例的直射路径功率，在同样的统计区间内只需做较少的采样，保证统计区间$2L \leq 50m$，采样间隔$\Delta d \leq 1.5m$，便可以满足本地均值的准确性要求。对应列车运行速度在$300km/h$ 时，采样时间间隔为$2.0ms$到$18.0ms$ 时，才能够保证测量数据的可靠性。在实际工程应用中的GSM-R 网络无线覆盖测量，一般采用采样间隔$\Delta d = 4cm$、统计区间$10m \leq 2L \leq 100m$ 的方法，参照本章关于莱斯衰落信道下采样算法的推导，可以在高铁线路中的开阔区域适当提高采样间隔，从而在确保数据可靠性的同时降低测量开销；另一方面针对GPS测距触发方式的测量方法，利用高速铁路列车运行速度相对固定的特点，结合列车运行速度、当前采样数据及衰落参数历史数据，采用时间触发的方式进行采样间隔与统计区间的确定。
 
-\nocite{4536668,PrietoGMVA08,flammini2009quantitative,4299714,wubben2011lattice}
-\nocite{tepedelenlio?lu2001estimation}
-\nocite{gopal2009power}
+\nocite{Akhoondzadeh2007modifi,andersen1995propagation,bjornson2010framework,gopal2009power,itoh2002performance}
+\nocite{sijbers1998maximum,zhang1996analysis,zhu2005performance,mousa2010estimation}
+\nocite{saleh1987statistical}
 \nocite{goldsmith1994error}
 \nocite{aja2008restoration}
 \nocite{saleh1987statistical}
