@@ -134,11 +134,11 @@ P_{r}(x) = S(x) + H(x)
 \subsection{多径衰落}
 \label{sec:multipath}
 
-多径衰落是由于信号的衍射和散射而导致的接收信号强度的瞬时波动，所以移动终端的接收信号强度是来自不同方向信号的叠加。由于信号的相位是随机的，因此可以描述为本地均值与噪声信号的总和。由于GSM-R网络的小区半径通常较短，同时无线传播环境一般是平坦的地形，因此多路径衰落包含一个可视LOS信号，此时多径衰落可以刻画为莱斯衰落，表示为可视LOS信号与非直射NLOS信号的叠加，如式（\ref{equa:rician1}）所示，
+多径衰落是由于信号的衍射和散射而导致的接收信号强度的瞬时波动，所以移动终端的接收信号强度是来自不同方向信号的叠加。由于信号的相位是随机的，因此可以描述为本地均值与噪声信号的总和。由于GSM-R网络的小区半径通常较短，同时无线传播环境一般是平坦的地形，因此多路径衰落包含一个可视LOS信号，此时多径衰落可以刻画为莱斯衰落，表示为可视LOS信号与非直射NLOS信号的叠加，如式（\ref{equa:rician}）所示，
 \begin{equation}
   h(x)=\underbrace{\frac{1}{\sqrt{1+K}}\lim_{M \to \infty}\frac{1}{\sqrt M}\sum_{m=1}^{M}a_{m}e^{j(\frac{2\pi}{\lambda}\cos(\theta_{m}x)+\phi_m)}}_{\rm NLOS~Components}
   +\underbrace{\sqrt{\frac{K}{1+K}}e^{j(\frac{2\pi}{\lambda}\cos(\theta_{0}x+ \phi_0))}}_{\rm LOS~Component}
-\label{equa:rician1}
+\label{equa:rician}
 \end{equation}
 %\begin{equation}
 %\begin{split}

@@ -1739,22 +1739,22 @@ FUNCTION {format.tr.number}
   if$                                                       %  changed, leave
 }                                                           %  it alone.
 
-FUNCTION {format.addr.pub}
-{ publisher empty$
-    {address empty$
-        { ".[S.l.]: [s.n.] " *}
-        { address ": [s.n.] " * }
-      if$
-    }
-    { address empty$
-        { ".[S.l.]: " * }
-        { address ": " * }
-      if$
-      publisher *
-    }
-
-  if$
-}
+%FUNCTION {format.addr.pub}
+%{ publisher empty$
+%    {address empty$
+%        { ".[S.l.]: [s.n.] " *}
+%        { address ": [s.n.] " * }
+%      if$
+%    }
+%    { address empty$
+%        { ".[S.l.]: " * }
+%        { address ": " * }
+%      if$
+%      publisher *
+%    }
+%
+%  if$
+%}
 
 FUNCTION {format.caddr.pub}
 {publisher empty$
@@ -1773,22 +1773,22 @@ FUNCTION {format.caddr.pub}
   if$
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-FUNCTION {format.addr.institution}
-{ institution empty$
-    {address empty$
-        { ".[S.l.]: [s.n.] " *}
-        { address ": [s.n.] " * }
-      if$
-    }
-    { address empty$
-        { ".[S.l.]: " * }
-        { address ": " * }
-      if$
-      institution *
-    }
-
-  if$
-}
+%FUNCTION {format.addr.institution}
+%{ institution empty$
+%    {address empty$
+%        { ".[S.l.]: [s.n.] " *}
+%        { address ": [s.n.] " * }
+%      if$
+%    }
+%    { address empty$
+%        { ".[S.l.]: " * }
+%        { address ": " * }
+%      if$
+%      institution *
+%    }
+%
+%  if$
+%}
 
 FUNCTION {format.caddr.institution}
 {institution empty$

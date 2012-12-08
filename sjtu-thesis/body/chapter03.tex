@@ -585,8 +585,6 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \bicaption[fig:route]{吞吐量及传输成功率}{吞吐量及传输成功率}{Fig}{Throughput improvements and PDR results along the route \textbf{r5}}
 \end{figure}
 
-图 \ref{fig:route} 所示为沿线路\textbf{r5}（如图 \ref{fig:testbed80211n} 所示）的速率控制结果，主要对特定移动路线的PDR和吞吐量进行评估。首先对于所有的MIMO配置，GradedR能够明显提升网络可靠性，对于路线\textbf{r5}的所有GradedR测试至少91\%的PDR高于90\%，而Minstrel约有63\%的PDR低于90\%；同时随着MIMO可用天线数量的增加，GradedR的可靠性随之上升，其低于90\%的PDR所占比例由9\%降低为5\%，而Minstrel的这一比例却从37\% 上升为51\%，说明Minstrel的可靠性随着天线数量增加而降低。其次GradedR能够明显提高网络吞吐量，对于1$\times$3的MIMO配置，GradedR算法只有在时间20秒之前吞吐量高于Minstrel算法5-15Mbps，其他情况下的吞吐量基本相同；而在2$\times$3和3$\times$3的MIMO配置下，GradedR算法的吞吐量明显高于Minstrel算法，在2$\times$3配置下大约高于5-20Mbps，在3$\times$3配置下甚至达到30Mbps的性能提升。GradedR能够实现吞吐量的有效提升，一方面是由于上文中提到的PDR的大幅提升，另一方面在于其实时准确的配置选择策略。第一，GradedR利用DSWA算法能够获得准确的PDR参数，根据网络当前状态及在线PDR-RSS模型得到准确的最优配置选择，能够在保证网络可靠性的基础之上尽量提高网络吞吐量，而Minstrel 通过随机探测的方式寻找可用配置，或直接降低MCS\footnote{降低MCS值即降低网络的数据传输速率}以保证数据的可靠传输，其配置选择效率受到很大限制；第二，由于DSWA在网络状态稳定时能够有效降低测试开销，同时GradedR不需要多余的探测数据包进行测试，从而有效降低由配置选择带来的额外开销，而Minstrel需要依靠10\%的探测数据包来获得当前可用配置，其效率与准确性受到明显限制，同时探测数据包降低了可用数据传输的吞吐量。
-
 \begin{figure}[!htp]
 \centering
   \subfigure[1x3]{
@@ -605,6 +603,8 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \bicaption[fig:throughput]{吞吐量及平均接收信号强度关系}{吞吐量及平均接收信号强度关系}{Fig}{Throughput vs. average RSS under different MIMO configurations}
 \end{figure}
 
+图 \ref{fig:route} 所示为沿线路\textbf{r5}（如图 \ref{fig:testbed80211n} 所示）的速率控制结果，主要对特定移动路线的PDR和吞吐量进行评估。首先对于所有的MIMO配置，GradedR能够明显提升网络可靠性，对于路线\textbf{r5}的所有GradedR测试至少91\%的PDR高于90\%，而Minstrel约有63\%的PDR低于90\%；同时随着MIMO可用天线数量的增加，GradedR的可靠性随之上升，其低于90\%的PDR所占比例由9\%降低为5\%，而Minstrel的这一比例却从37\% 上升为51\%，说明Minstrel的可靠性随着天线数量增加而降低。其次GradedR能够明显提高网络吞吐量，对于1$\times$3的MIMO配置，GradedR算法只有在时间20秒之前吞吐量高于Minstrel算法5-15Mbps，其他情况下的吞吐量基本相同；而在2$\times$3和3$\times$3的MIMO配置下，GradedR算法的吞吐量明显高于Minstrel算法，在2$\times$3配置下大约高于5-20Mbps，在3$\times$3配置下甚至达到30Mbps的性能提升。GradedR能够实现吞吐量的有效提升，一方面是由于上文中提到的PDR的大幅提升，另一方面在于其实时准确的配置选择策略。第一，GradedR利用DSWA算法能够获得准确的PDR参数，根据网络当前状态及在线PDR-RSS模型得到准确的最优配置选择，能够在保证网络可靠性的基础之上尽量提高网络吞吐量，而Minstrel 通过随机探测的方式寻找可用配置，或直接降低MCS\footnote{降低MCS值即降低网络的数据传输速率}以保证数据的可靠传输，其配置选择效率受到很大限制；第二，由于DSWA在网络状态稳定时能够有效降低测试开销，同时GradedR不需要多余的探测数据包进行测试，从而有效降低由配置选择带来的额外开销，而Minstrel需要依靠10\%的探测数据包来获得当前可用配置，其效率与准确性受到明显限制，同时探测数据包降低了可用数据传输的吞吐量。
+
 吞吐量与平均RSS的关系如图 \ref{fig:throughput} 所示，包括图 \ref{fig:testbed80211n} 中\textbf{r1}到\textbf{r6}的所有移动测试数据。整体上GradedR能够在不同MIMO配置下实现更高的吞吐量，在相同的平均RSS条件下同样具有更高的吞吐量，同时吞吐量的提升随着天线数量和平均RSS的增加而增加。从图 \ref{fig:throughput} 可以看出，GradedR在1$\times$3和3$\times$3的MIMO配置下分别提升吞吐量5-15Mbps和10-40Mbps；在特定MIMO配置下，不同速率控制算法的吞吐量都与平均RSS密切相关，当平均RSS低于-60dBm时，单天线和双天线系统的吞吐量基本相同，GradedR在3$\times$3的MIMO系统下的最大吞吐量提升为5Mbps，主要原因是GradedR的可选配置受天线数量和平均RSS的限制。另一方面Minstrel速率控制算法结合DSWA测试算法同样可以实现吞吐量提升，相对于采用EWMA测试算法的Minstrel，Minstrel-DSWA的吞吐量提升同样随着天线数量和平均RSS而增加。如图 \ref{fig:throughput} 所示，当平均RSS高于-40dBm时，对于1$\times$3MIMO系统，Minstrel-DSWA能够获得最高8Mbps的吞吐量提升，对于2$\times$3 和3$\times$3MIMO系统，最高的吞吐量提升分别为25Mbps和30Mbps。总体上，在不同的MIMO配置条件下，GradedR相对于Minstrel能够实现40\%的吞吐量提升，同时在2$\times$3和3$\times$3的MIMO配置系统中，Minstrel算法结合DSWA测试算法同样能够实现高于Minstrel-EWMA算法20\%/25\%的吞吐量。
 
 
@@ -612,7 +612,7 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \label{sec:conclusion3}
 
 本章主要讨论在移动网络中，MIMO-OFDM无线系统的链路质量测试与建模问题。本文首先提出基于动态滑动窗口平均的PDR测试算法，通过数据包收发事件驱动确定采样间隔，从而避免多配置对PDR测试的影响，同时利用当前PDR信息降低测试开销。然后以PDR测试算法为基础，提出在线PDR-RSS建模框架，通过PDR-RSS模型数据库结合实时更新，解决MIMO-OFDM系统多配置带来的过渡窗口问题。以上的PDR测试算法与在线建模框架，通过同时应用物理层指标RSS与链路层指标PDR，有效地解决了移动性及多配置对链路质量测试与建模的影响。最后通过速率控制算法设计及其系统实现，对以上算法进行实验评估，评估结果表明本文提出的PDR测试算法能够提升89\%的测试精度，同时结合在线建模框架能够在不同MIMO配置下实现40\%的吞吐量提升。
-configurations.
+
 
 \nocite{10.1109/TMC.2009.87,Ahmed2008Online,Deek:2011,dujovne2010taxonomy,hiertz2010802.11,kim2006accurate,kim2009experimental,kolar2011mesh}
 \nocite{Pelechrinis2010high,perahia2008next,sevani2012sir,zhang2008practical,Zhao2003delivery}
