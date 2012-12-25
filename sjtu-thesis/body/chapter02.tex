@@ -38,7 +38,7 @@
 
 如图 \ref{fig:timevary} 所示，移动无线网络接收信号强度具有明显的时变特性，其中包括大尺度衰落和小尺度衰落，如果信号采样的统计区间过长或采样频率过低，系统将无法对小尺度衰落作出合理评估，从而难以保证可靠的数据传输；相反，如果统计区间过段或采样频率过高，大尺度衰落和小尺度衰落难以有效区分，从而导致网络状态的不稳定，例如接收信号强度在切换门限附近波动造成的乒乓切换效应。
 
-William C. Y. Lee在1985年最先提出移动网络信号强度采样算法，即Lee氏采样算法 \cite{lee1985estimate}，该算法以移动网络无线传播传播模型为基础，在无线传播环境服从瑞利衰落的假设条件下，推导出信号强度的本地均值测量中的统计区间长度与采样点数。Mark D. Austin在其蜂窝网络的切换算法中对莱斯衰落条件下的采样算法进行了推导 \cite{Austin1994}，得到统计区间与采样点数的近似解，但是该算法过程复杂且计算量较大。David de la Vega在2009年提出通用Lee氏采样算法 \cite{Vega2009}，在不需要知道多径衰落具体分布的条件下，利用实测采样信号进行估计，得到实际网络环境所需要的统计区间与采样点数。由于高速铁路无线环境的复杂性及其对安全性的特殊要求，以上的本地均值估计算法难以在较低的测试开销条件下实现可靠的测试精度，不符合高铁环境实时测试的要求，因此无法直接应用于GSM-R网络中。
+William C. Y. Lee在1985年最先提出移动网络信号强度采样算法，即Lee氏采样算法 \upcite{lee1985estimate}，该算法以移动网络无线传播传播模型为基础，在无线传播环境服从瑞利衰落的假设条件下，推导出信号强度的本地均值测量中的统计区间长度与采样点数。Mark D. Austin在其蜂窝网络的切换算法中对莱斯衰落条件下的采样算法进行了推导 \upcite{Austin1994}，得到统计区间与采样点数的近似解，但是该算法过程复杂且计算量较大。David de la Vega在2009年提出通用Lee氏采样算法 \upcite{Vega2009}，在不需要知道多径衰落具体分布的条件下，利用实测采样信号进行估计，得到实际网络环境所需要的统计区间与采样点数。由于高速铁路无线环境的复杂性及其对安全性的特殊要求，以上的本地均值估计算法难以在较低的测试开销条件下实现可靠的测试精度，不符合高铁环境实时测试的要求，因此无法直接应用于GSM-R网络中。
 
 \subsection{存在问题}
 \label{sec:prob3}
@@ -119,17 +119,17 @@ P_{r}(x) = S(x) + H(x)
     s(x) \sim N\left( m(x),\sigma_s^2 \right)
 \label{equa:shadow}
 \end{equation}
-其中均值$m(x)$主要受路径损耗影响，方差$\sigma_s^2$受地形因素影响。 文献 \cite{sarkar2003survey} 综合基站发射功率、移动台接收灵敏度以及无线传播环境的影响，给出$m(x)$的基本模型并被广泛应用，表示为式（\ref{equa:pathloss}）
+其中均值$m(x)$主要受路径损耗影响，方差$\sigma_s^2$受地形因素影响。 文献 \upcite{sarkar2003survey} 综合基站发射功率、移动台接收灵敏度以及无线传播环境的影响，给出$m(x)$的基本模型并被广泛应用，表示为式（\ref{equa:pathloss}）
 \begin{equation}
     M(x)= K_1+K_2\log(x)
 \label{equa:pathloss}
 \end{equation}
-其中$M(x):=20\log(m(x))$为$m(x)$的对数形式，$K_1$主要与基站发射功率、天线增益及线路损耗有关，$K_2$为地形因子并随着无线传播环境的不同而变化 \cite{hata1980empirical} \cite{medeisis2000use}。$S(x)$的空间相关性，即其自相关函数，主要与地形因素有关，表示为式（\ref{equa:multipath}） \cite{gudmundson1991correlation}。
+其中$M(x):=20\log(m(x))$为$m(x)$的对数形式，$K_1$主要与基站发射功率、天线增益及线路损耗有关，$K_2$为地形因子并随着无线传播环境的不同而变化 \upcite{hata1980empirical} \upcite{medeisis2000use}。$S(x)$的空间相关性，即其自相关函数，主要与地形因素有关，表示为式（\ref{equa:multipath}） \upcite{gudmundson1991correlation}。
 \begin{equation}
     R_{s}(x) = \sigma_{s}^2\exp\left(-\frac{\Delta x}{x_0}\right)
 \label{equa:multipath}
 \end{equation}
-其中$\sigma_s$为$S(x)$的方差，通常在4到12dB间取值；$x_0$为相关距离，根据传播环境的不同一般为10m到500m \cite{tepedelenlio?lu2001estimation}；$\Delta x$为相对距离，可以通过移动台运行速度即采样时间间隔获得，即$\Delta x = v_{train}\cdot\Delta t$。在阴影衰落模型中，地形因子$K_2$、阴影衰落方差$\sigma_s$及自相关距离$x_0$都与无线传播环境有关，同时影响到上层应用的参数设置，例如小区切换算法中的切换门限值的选择。
+其中$\sigma_s$为$S(x)$的方差，通常在4到12dB间取值；$x_0$为相关距离，根据传播环境的不同一般为10m到500m \upcite{tepedelenlio?lu2001estimation}；$\Delta x$为相对距离，可以通过移动台运行速度即采样时间间隔获得，即$\Delta x = v_{train}\cdot\Delta t$。在阴影衰落模型中，地形因子$K_2$、阴影衰落方差$\sigma_s$及自相关距离$x_0$都与无线传播环境有关，同时影响到上层应用的参数设置，例如小区切换算法中的切换门限值的选择。
 
 \subsection{多径衰落}
 \label{sec:multipath}
@@ -179,7 +179,7 @@ P_{r}(x) = S(x) + H(x)
 \subsection{信道参数估计}
 \label{sec:estimation}
 
-对于莱斯衰落信道的参数估计已有大量相关工作，包括基于学习训练机制 \cite{bjornson2010framework}、最大似然估计 \cite{sijbers1998maximum} 以及期望最大化算法\cite{marzetta1995algorithm}。由于EM算法通过迭代方式进行参数估计，本文采用EM算法进行莱斯参数估计，以充分利用历史信息提高测试精度并降低测试开销。EM算法中莱斯衰落因子$\nu^2$和$\sigma^2$通过其上一时刻估计值与当前采样信号计算获得，如式（\ref{equa:EM}）所示
+对于莱斯衰落信道的参数估计已有大量相关工作，包括基于学习训练机制 \upcite{bjornson2010framework}、最大似然估计 \upcite{sijbers1998maximum} 以及期望最大化算法\upcite{marzetta1995algorithm}。由于EM算法通过迭代方式进行参数估计，本文采用EM算法进行莱斯参数估计，以充分利用历史信息提高测试精度并降低测试开销。EM算法中莱斯衰落因子$\nu^2$和$\sigma^2$通过其上一时刻估计值与当前采样信号计算获得，如式（\ref{equa:EM}）所示
 \begin{subequations}
   \begin{eqnarray}
     \nu_{k+1}&=&\frac{1}{N}\sum_{i=1}^{N}\frac{I_{1}\left(\frac{\nu_{k}z_{i}}{\sigma_k^2}\right)}{I_{0}\left(\frac{\nu_{k}z_{i}}{\sigma_k^2}\right)}z_i \\
