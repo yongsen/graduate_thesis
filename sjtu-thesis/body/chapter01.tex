@@ -30,7 +30,7 @@
 
 目前我国的GSM-R数字移动通信系统由七个子系统构成：网络交换子系统（SSS）、基站子系统（BSS）、操作维护子系统（OSS）、通用分组无线业务子系统（GPRS）、智能网子系统（IN）、固定接入交换子系统（FAS）和终端子系统，如图 \ref{fig:gsmr} 所示。GSM-R系统的各个功能单元通过不同的接口进行连接，使各组成单元在物理上和逻辑上遵守特定的协议。GSM-R系统测试的主要应用到的接口有空中接口、Abis接口、A接口、PRI接口等，其中空中接口是移动台与基站之间的通信接口，用于移动台与GSM-R系统固定部分之间的通信，其物理连接通过无线链路实现，它的特点是完全标准化。
 
-在GSM-R网络的通信过程中，大部分的信令都是和移动台相关，从图 \ref{fig:gsmr} 中可以看出，虽然移动台只和基站之间存在接口，但发往基站和从基站发往移动台的信令消息中还包括了移动台与GSM-R网络中其他设备之间的通信信息，即要在无线接口上传输各种不同的协议。同时，由于空中接口为无线链接，其可靠性是GSM-R网络能够正常运行的基础，因此需要对GSM-R的空中接口进行实时监测 \upcite{baldini2010early}。
+在GSM-R网络的通信过程中，大部分的信令都是和移动台相关，从图 \ref{fig:gsmr} 中可以看出，虽然移动台只和基站之间存在接口，但发往基站和从基站发往移动台的信令消息中还包括了移动台与GSM-R网络中其他设备之间的通信信息，即要在无线接口上传输各种不同的协议。同时，由于空中接口为无线链接，其可靠性是GSM-R网络能够正常运行的基础，因此需要对GSM-R的空中接口进行实时监测 \cite{baldini2010early}。
 
 \begin{figure}[!htp]
 \centering
@@ -41,7 +41,7 @@
 \subsection{无线局域网络}
 \label{sec:80211n}
 
-近年来，无线业务的流量和带宽需求不断提高，使得基于802.11n的无线局域网络（Wireless Local Area Networks, WLANs）经历了快速的发展，同时由于智能手机等移动终端的迅猛发展，802.11n网络将会得到进一步的发展 \upcite{Bala2010wifi}。802.11n网络一方面能够有效提升网络性能，同时也使得链路质量的测试与建模更为复杂。
+近年来，无线业务的流量和带宽需求不断提高，使得基于802.11n的无线局域网络（Wireless Local Area Networks, WLANs）经历了快速的发展，同时由于智能手机等移动终端的迅猛发展，802.11n网络将会得到进一步的发展 \cite{Bala2010wifi}。802.11n网络一方面能够有效提升网络性能，同时也使得链路质量的测试与建模更为复杂。
 
 802.11n网络的显著特点是采用了MIMO-OFDM及其相关技术，从而有效地提升网络的传输性能。在物理层方面，多天线技术有效提升网络吞吐量及覆盖范围，同时提高系统的稳定性，以及信道绑定技术等，更好地解决载波侦听、隐藏/暴露终端等问题；在链路层方面，802.11n网络采用帧聚合技术即多个帧共用一个MAC头部，同时降低ACK发送频率及发送/接收开销，提高传输效率，同时采用400ns的短保护间隔，以降低时间开销，并提高链路层吞吐量。
 
@@ -66,7 +66,7 @@
 \end{threeparttable}
 \end{table}
 
-首先802.11n网络显著提升了无线局域网络的传输性能、覆盖范围及其兼容性。在传输速率方面，802.11n可以将无线局域网的传输速率由目前802.11a及802.11g提供的54Mbps，提高到300Mbps甚至高达600Mbps。得益于将多天线（Multiple Input Multiple Output, MIMO）与正交频分复用（Orthogonal Frequency Division Multiplexing, OFDM）技术相结合而应用的MIMO-OFDM技术，提高了无线传输质量，也使传输速率得到极大提升，如表 \ref{tab:feature} 所示；在覆盖范围方面，802.11n采用智能天线技术，通过多组独立天线组成的天线阵列，可以动态调整波束，保证让用户接收到稳定的信号，并可以减少其它信号的干扰。因此其覆盖范围可以扩大到好几平方公里，同时使无线局域网的移动性得到极大提高；在兼容性方面，802.11n采用了一种软件无线电技术，它是一个完全可编程的硬件平台，使得不同系统的基站和终端都可以通过这一平台的不同软件实现互通和兼容，这使得WLAN的兼容性得到极大改善。这意味着WLAN将不但能实现802.11n向前后兼容，而且可以实现WLAN与无线广域网络的结合，比如3G 网络。
+首先802.11n网络显著提升了无线局域网络的传输性能、覆盖范围及其兼容性。在传输速率方面，802.11n可以将无线局域网的传输速率由目前802.11a及802.11g提供的54Mbps，提高到300Mbps甚至高达600Mbps。得益于将多天线（Multiple Input Multiple Output, MIMO）与正交频分复用（Orthogonal Frequency Division Multiplexing, OFDM）技术相结合而应用的MIMO-OFDM技术，提高了无线传输质量，也使传输速率得到极大提升，如表 \ref{tab:feature} 所示；在覆盖范围方面，802.11n采用智能天线技术，通过多组独立天线组成的天线阵列，可以动态调整波束，保证让用户接收到稳定的信号，并可以减少其它信号的干扰。因此其覆盖范围可以扩大到数十平方公里，同时使无线局域网的移动性得到极大提高；在兼容性方面，802.11n采用了一种软件无线电技术，它是一个完全可编程的硬件平台，使得不同系统的基站和终端都可以通过这一平台的不同软件实现互通和兼容，这使得WLAN的兼容性得到极大改善。这意味着WLAN不仅能实现802.11n网络的前后兼容，而且可以实现WLAN与无线广域网络的结合，比如3G及LTE网络。
 
 \begin{table}[!htp]
 \renewcommand{\arraystretch}{1}
@@ -180,18 +180,18 @@
 \subsection{物理层信道状态估计}
 \label{sec:phy}
 
-无线传播测量与信道状态估计在移动网络中发挥重要作用，并广泛应用于其他上层应用中，例如无线覆盖评估、信道接入、功率控制及小区切换等 \upcite{Austin1994}\upcite{itoh2002performance}\upcite{zhang1996analysis}\upcite{zhu2005performance}。文献 \upcite{andersen1995propagation} \upcite{sarkar2003survey} 给出了无线网络中无线传播模型及其测试方法，文献 \upcite{Ostlin2008itu} 以国际电信联盟（International Telecommunication Union, ITU）相关规定为基础提出点到面无线传输服务的无线预测模型，\upcite{Akhoondzadeh2007modifi} 和 \upcite{medeisis2000use} 分别基于最小均方差和Levenberg-Marquardet方法提出改进Okumura-Hata传播模型。以上的无线传播模型与测试方法主要集中于路径损耗与阴影衰落，当考虑到移动无线网络中的多径衰落时，主要问题是如何对接收信号强度进行估计，以准确反映网络当前的链路质量。
+无线传播测量与信道状态估计在移动网络中发挥重要作用，并广泛应用于其他上层应用中，例如无线覆盖评估、信道接入、功率控制及小区切换等 \cite{Austin1994}\cite{itoh2002performance}\cite{zhang1996analysis}\cite{zhu2005performance}。文献 \cite{andersen1995propagation} \cite{sarkar2003survey} 给出了无线网络中无线传播模型及其测试方法，文献 \cite{Ostlin2008itu} 以国际电信联盟（International Telecommunication Union, ITU）相关规定为基础提出点到面无线传输服务的无线预测模型，文献 \cite{Akhoondzadeh2007modifi} 和 \cite{medeisis2000use} 分别基于最小均方差和Levenberg-Marquardet方法提出改进Okumura-Hata传播模型。以上的无线传播模型与测试方法主要集中于路径损耗与阴影衰落，当考虑到移动无线网络中的多径衰落时，主要问题是如何对接收信号强度进行估计，以准确反映网络当前的链路质量。
 
-针对这一问题，William C. Y. Lee在1985年提出移动网络信号强度采样算法 \upcite{lee1985estimate}，该算法分析了瑞利衰落情况下接受信号强度本地均值的估计问题，并给出合适的统计区间与采样点数的参数设置。Mark D. Austin在其蜂窝网络的切换算法中对莱斯衰落条件下的采样算法进行了推导 \upcite{Austin1994}，得到统计区间与采样点数的近似解，但是该算法过程复杂且计算量较大。David de la Vega在2009年提出通用Lee氏采样算法 \upcite{Vega2009}，在不需要知道多径衰落具体分布的条件下，利用实测采样信号进行估计，得到实际网络环境所需要的统计区间与采样点数。由于高速铁路无线环境的复杂性及其对安全性的特殊要求，以上的本地均值估计算法难以在较低的测试开销条件下实现可靠的测试精度，不符合高铁环境实时测试的要求，因此无法直接应用于GSM-R网络中。
+针对这一问题，William C. Y. Lee在1985年提出移动网络信号强度采样算法 \cite{lee1985estimate}，该算法分析了瑞利衰落情况下接受信号强度本地均值的估计问题，并给出合适的统计区间与采样点数的参数设置。Mark D. Austin在其蜂窝网络的切换算法中对莱斯衰落条件下的采样算法进行了推导 \cite{Austin1994}，得到统计区间与采样点数的近似解，但是该算法过程复杂且计算量较大。David de la Vega在2009年提出通用Lee氏采样算法 \cite{Vega2009}，在不需要知道多径衰落具体分布的条件下，利用实测采样信号进行估计，得到实际网络环境所需要的统计区间与采样点数。由于高速铁路无线环境的复杂性及其对安全性的特殊要求，以上的本地均值估计算法难以在较低的测试开销条件下实现可靠的测试精度，不符合高铁环境实时测试的要求，因此无法直接应用于GSM-R网络中。
 
-由于高速铁路沿线地形复杂多变，一条线路通常会经过山地、平原、隧道和高架等地形，从而造成GSM-R网络无线传播环境的复杂性。同时高速铁路无线传播环境大多较为平坦，同时为了尽量保证GSM-R网络的可靠性，基站位置通常距离高铁线路很近，而且小区半径一般设置为3-6km，从而造成移动终端与基站之间一般存在直射路径（Line of Sight, LOS），因此GSM-R网络的无线传播应该刻画为莱斯衰落。对于莱斯衰落信道的参数估计已有大量相关工作，包括基于学习训练机制 \upcite{bjornson2010framework}、最大似然估计（Maximum Likelihood, ML） \upcite{sijbers1998maximum} 以及期望最大化算法（Expectation Maximization, EM）\upcite{marzetta1995algorithm}。因此GSM-R网络的信道状态估计问题实为莱斯衰落信道下本地均值估计，如何通过莱斯衰落参数估计，确定信道状态测试的采样参数。
+由于高速铁路沿线地形复杂多变，一条线路通常会经过山地、平原、隧道和高架等地形，从而造成GSM-R网络无线传播环境的复杂性。同时高速铁路无线传播环境大多较为平坦，同时为了尽量保证GSM-R网络的可靠性，基站位置通常距离高铁线路很近，而且小区半径一般设置为3-6km，从而造成移动终端与基站之间一般存在直射路径（Line of Sight, LOS），因此GSM-R网络的无线传播应该刻画为莱斯衰落。对于莱斯衰落信道的参数估计已有大量相关工作，包括基于学习训练机制 \cite{bjornson2010framework}、最大似然估计（Maximum Likelihood, ML） \cite{sijbers1998maximum} 以及期望最大化算法（Expectation Maximization, EM）\cite{marzetta1995algorithm}。因此GSM-R网络的信道状态估计问题实为莱斯衰落信道下本地均值估计，如何通过莱斯衰落参数估计，确定信道状态测试的采样参数。
 
 \subsection{链路层链路质量测试}
 \label{sec:mac}
 
-无线网络中基于实测数据的PDR-RSS模型存在大量研究，多数早期的工作主要针对静态无线网络中的离线PDR-RSS模型 \upcite{kolar2011mesh} \upcite{reis2006model}，同时实测PDR-RSS模型广泛应用于其他上层应用中，包括容量分析 \upcite{kashyap2007capacity} 和速率控制 \upcite{chen2011ram} \upcite{judd2008efficient} 等。文献 \upcite{10.1109/TMC.2009.87} 通过实验与仿真的结合，提出移动无线网络的可重复测量方法，文献 \upcite{kim2010sybot} 同样提出针对移动网络的频谱测量方法，但是只对RSS进行测量而忽略链路质量。以上的移动无线网络测量方法都基于传统802.11a/b/g网络，而无法直接应用于802.11n 网络中。由于802.11n网络采用MIMO-OFDM技术，导致PDR-RSS模型存在过渡窗口，从而增加了链路质量测试与建模的复杂度。近期许多工作针对802.11n 网络的实验特性进行了详细分析 \upcite{Halperin2010predictable} \upcite{k.rayanchu:fluid:}，其中文献 \upcite{Halperin2010predictable} 利用802.11n 网络的MIMO-OFDM 特性提出基于信道状态信息（Channel State Information, CSI）的链路质量预测模型；文献 \upcite{k.rayanchu:fluid:} 针对信道绑定技术，分析了信道带宽对无线局域网络性能的影响。以上针对802.11n网络的工作并未针对移动性进行分析，同时主要针对物理层而忽略链路层的影响。
+无线网络中基于实测数据的PDR-RSS模型存在大量研究，多数早期的工作主要针对静态无线网络中的离线PDR-RSS模型 \cite{kolar2011mesh} \cite{reis2006model}，同时实测PDR-RSS模型广泛应用于其他上层应用中，包括容量分析 \cite{kashyap2007capacity} 和速率控制 \cite{chen2011ram} \cite{judd2008efficient} 等。文献 \cite{10.1109/TMC.2009.87} 通过实验与仿真的结合，提出移动无线网络的可重复测量方法，文献 \cite{kim2010sybot} 同样提出针对移动网络的频谱测量方法，但是只对RSS进行测量而忽略链路质量。以上的移动无线网络测量方法都基于传统802.11a/b/g网络，而无法直接应用于802.11n 网络中。由于802.11n网络采用MIMO-OFDM技术，导致PDR-RSS模型存在过渡窗口，从而增加了链路质量测试与建模的复杂度。近期许多工作针对802.11n 网络的实验特性进行了详细分析 \cite{Halperin2010predictable} \cite{k.rayanchu:fluid:}，其中文献 \cite{Halperin2010predictable} 利用802.11n 网络的MIMO-OFDM特性提出基于信道状态信息（Channel State Information, CSI）的链路质量预测模型；文献 \cite{k.rayanchu:fluid:} 针对信道绑定技术，分析了信道带宽对无线局域网络性能的影响。以上针对802.11n网络的工作并未针对移动性进行分析，同时主要针对物理层而忽略链路层的影响。
 
-信道状态与链路质量及其模型广泛应用于速率控制算法中 \upcite{kim2009experimental} \upcite{Pefkianakis:2010} \upcite{zhang2008practical} \upcite{Li:2012:ERA:2348543.2348585}，许多算法应用于Linux平台无线驱动中，例如采用Minstrel算法 \upcite{minstrel} 的\textit{mac80211} 及Atheros \upcite{wong2008wireless}的\textit{ath9k} 无线驱动，但是以上的算法都采用固定指数加权平均（Exponential Weighted Moving Average, EWMA）进行链路质量测试，仅适用于静态802.11网络。针对移动无线网络的速率控制算法主要针对RSS测量 \upcite{chen2011ram} \upcite{judd2008efficient}，并利用静态PDR-RSS模型进行链路质量预测，但是其预测精度容易受802.11n网络的MIMO-OFDM配置的影响。许多上层应用考虑到在线PDR测试算法，比如入侵信号检测 \upcite{5620919} 与拥塞控制 \upcite{floyd2000equation} 等，但是并不考虑链路质量建模与速率控制问题。以上速率控制算法主要利用静态PDR-RSS模型 \upcite{kashyap2007capacity} \upcite{kolar2011mesh} \upcite{reis2006model}，同时只利用单一指标，即链路层PDR或物理层RSS，进行链路质量预测与速率控制 \upcite{judd2008efficient} \upcite{zhang2008practical}。
+信道状态与链路质量及其模型广泛应用于速率控制算法中 \cite{kim2009experimental} \cite{Pefkianakis:2010} \cite{zhang2008practical} \cite{Li:2012:ERA:2348543.2348585}，许多算法应用于Linux平台无线驱动中，例如采用Minstrel算法 \cite{minstrel} 的\textit{mac80211} 及Atheros \cite{wong2008wireless}的\textit{ath9k} 无线驱动，但是以上的算法都采用固定指数加权平均（Exponential Weighted Moving Average, EWMA）进行链路质量测试，仅适用于静态802.11网络。针对移动无线网络的速率控制算法主要针对RSS测量 \cite{chen2011ram} \cite{judd2008efficient}，并利用静态PDR-RSS模型进行链路质量预测，但是其预测精度容易受802.11n网络的MIMO-OFDM配置的影响。许多上层应用考虑到在线PDR测试算法，比如入侵信号检测 \cite{5620919} 与拥塞控制 \cite{floyd2000equation} 等，但是并不考虑链路质量建模与速率控制问题。以上速率控制算法主要利用静态PDR-RSS模型 \cite{kashyap2007capacity} \cite{kolar2011mesh} \cite{reis2006model}，同时只利用单一指标，即链路层PDR或物理层RSS，进行链路质量预测与速率控制 \cite{judd2008efficient} \cite{zhang2008practical}。
 
 \section{本章小结}
 

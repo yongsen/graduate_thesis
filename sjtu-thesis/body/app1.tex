@@ -52,7 +52,7 @@ P_e:&=10 \log_{10}\left(\frac{\hat{s}+\sigma_{\hat{s}}}{\hat{s}-\sigma_{\hat{s}}
 \section{采样点数目}
 \label{appsec:numberestimation}
 
-根据莱斯分布的特性，$z_i^2$可以表示为$z_i^2=x_i^2+y_i^2$，其中$x_i \sim N(\nu\cos \eta,\sigma^2)$和$y_i \sim N(\nu\sin \eta,\sigma^2)$为统计独立的正态随机变量，$\eta$为任一实数。令$x_{0i}=x_i/\sigma$，则$x_{0i} \sim N(\nu \sin \eta,1)$且其和服从非中心$\chi^2$分布，即$\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$。由于$E[\chi_n^2(\lambda)]=n+\lambda$且$D[\chi_n^2(\lambda)]=2n+4\lambda$，则$\sum_{i=1}^{N}x_i^2$的均值与方差可以表示为
+根据莱斯分布的特性可以得到$z_i^2=x_i^2+y_i^2$，其中$x_i \sim N(\nu\cos \eta,\sigma^2)$ 和 $y_i \sim N(\nu\sin \eta,\sigma^2)$ 为独立正态随机变量，$\eta$为任一实数。令$x_{0i}=x_i/\sigma$，则$x_{0i} \sim N(\nu \sin \eta,1)$且其和服从非中心$\chi^2$分布，即$\sum_{i=1}^{N}x_{0i}^2 \sim \chi_N^2(\nu^2\cos^2\eta)$。由于$E[\chi_n^2(\lambda)]=n+\lambda$且$D[\chi_n^2(\lambda)]=2n+4\lambda$，则$\sum_{i=1}^{N}x_i^2$的均值与方差表示为
 \begin{subequations}
 \begin{eqnarray}
 \begin{split}

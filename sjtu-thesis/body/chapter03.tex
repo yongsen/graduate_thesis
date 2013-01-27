@@ -51,9 +51,9 @@
 
 \begin{itemize}
   \item \textbf{移动网络时空特性：}
-  移动网络的时空变化特性对PDR的测量精度与开销具有重要影响。无线网络中广泛应用指数加权平均算法进行链路质量测试 \upcite{ath9k} \upcite{minstrel} \upcite{wong2008wireless}，一般其参数设置为固定值，比如采样周期一般设置为50ms或100ms，而加权因子一般设置为0.25或0.125。但是网络状态的时空变化会降低EWMA算法的测试精度，尤其当网络运行与较高数据传输速率时。图 \ref{fig:pdrover} 所示的实验结果说明了网络状态变化对PDR测试的影响，当被测PDR发生瞬时变化时，采样周期固定为50ms或100ms的EWMA算法无法获得准确的PDR信息，甚至出现20\%的测试误差。因此有必要对PDR测试算法进行改进，以提高移动网络中链路质量测试精度。现有的针对移动网络链路质量测试方法的工作主要针对RSS的测试 \upcite{chen2011ram} \upcite{judd2008efficient}。
+  移动网络的时空变化特性对PDR的测量精度与开销具有重要影响。无线网络中广泛应用指数加权平均算法进行链路质量测试 \cite{ath9k} \cite{minstrel} \cite{wong2008wireless}，一般其参数设置为固定值，比如采样周期一般设置为50ms或100ms，而加权因子一般设置为0.25 或0.125。但是网络状态的时空变化会降低EWMA算法的测试精度，尤其当网络运行与较高数据传输速率时。图 \ref{fig:pdrover} 所示的实验结果说明了网络状态变化对PDR测试的影响，当被测PDR发生瞬时变化时，采样周期固定为50ms或100ms的EWMA算法无法获得准确的PDR信息，甚至出现20\%的测试误差。因此有必要对PDR测试算法进行改进，以提高移动网络中链路质量测试精度。现有的针对移动网络链路质量测试方法的工作主要针对RSS的测试 \cite{chen2011ram} \cite{judd2008efficient}。
   \item \textbf{MIMO-OFDM系统过渡窗口：}
-  MIMO-OFDM系统的多种配置增加了链路质量测试与预测的复杂度。由于802.11n网络采用了多种物理层和链路层技术，同时网络运行时需要在多种配置见进行切换，从而增加了链路质量测试的复杂度，MIMO-OFDM系统中PDR-RSS模型的过渡窗口进一步增加了802.11n网络中PDR-RSS建模的复杂度 \upcite{Halperin2010predictable}。如图 \ref{fig:transition} 所示，802.11n网络的PDR-RSS模型存在3-15dB的过渡窗口长度，对于静态建模框架约有34\%的被选配置落入过渡窗口，甚至有8\%的配置位于过渡窗口左侧\footnote{落入过渡窗口表示PDR<$P_{thrh}$=90\%，位于过渡窗口左侧表示PDR<$P_{thrl}$=10\%}。因此有必要针对MIMI-OFDM系统的多配置特性，设计有效的PDR-RSS建模方法与配置选择策略。
+  MIMO-OFDM系统的多种配置增加了链路质量测试与预测的复杂度。由于802.11n网络采用了多种物理层和链路层技术，同时网络运行时需要在多种配置间进行切换，从而增加了链路质量测试的复杂度，MIMO-OFDM系统中PDR-RSS模型的过渡窗口进一步增加了802.11n网络中PDR-RSS建模的复杂度 \cite{Halperin2010predictable}。如图 \ref{fig:transition} 所示，802.11n网络的PDR-RSS模型存在3-15dB的过渡窗口长度，对于静态建模框架约有34\%的被选配置落入过渡窗口，甚至有8\%的配置位于过渡窗口左侧\footnote{落入过渡窗口表示PDR<$P_{thrh}$=90\%，位于过渡窗口左侧表示PDR<$P_{thrl}$=10\%}。因此有必要针对MIMI-OFDM系统的多配置特性，设计有效的PDR-RSS建模方法与配置选择策略。
 \end{itemize}
 
 \begin{figure}[!htp]
@@ -118,7 +118,7 @@ PDR_f[k]=\frac{1}{W}\sum_{i=kW+1}^{(k+1)W}{x_i}
 \end{equation}
 其中$N$为窗口长度，$\overline{p}[\cdot]$为该统计区间内$p_i$的算术平均值，$p_n$当前时刻发送数据包的接收概率并作为传输成功率的真实值。从式（\ref{equal:pestimation}）可以看出测试误差与$p_i$的变化情况密切相关，而$p_i$在静态无线网络与移动无线网络中呈现不同的特性。同时平均窗口长度$W$ 对于测试误差具有很大影响，例如当$p_i$在短时间尺度内出现剧烈变化时，过大的窗口长度会丢失传输成功率的细节信息。
 
-在实际系统中一般采用指数加权平均，即EWMA算法，例如在Atheros's Linux系统的无线驱动中，包括针对802.11a/b/g网络的\texttt{Madwifi} \upcite{madwifi} 以及用于802.11n网络的\texttt{ath9k} \upcite{ath9k}，以提高测试精度并降低测试开销。在EWMA中测试传输成功率表示为当前测试结果与历史结果的加权平均，即
+在实际系统中一般采用指数加权平均，即EWMA算法，例如在Atheros's Linux系统的无线驱动中，包括针对802.11a/b/g网络的\texttt{Madwifi} \cite{madwifi} 以及用于802.11n网络的\texttt{ath9k} \cite{ath9k}，以提高测试精度并降低测试开销。在EWMA中测试传输成功率表示为当前测试结果与历史结果的加权平均，即
 \begin{equation}
  PDR_w[k]=\alpha PDR_f[k-1]+(1-\alpha)PDR_f[k]
 \label{equal:pdr_w}
@@ -167,7 +167,7 @@ PDR_f[k]=\frac{1}{W}\sum_{i=kW+1}^{(k+1)W}{x_i}
 
 \begin{itemize}
   \item 平均窗口长度以时间计量并为固定值，一般设置为50ms或100ms，难以对802.11n网络的多种配置进行有效测试；
-  \item 合适的加权因子难以选择，理论上$\alpha$应设置在0.1到0.3之间 \upcite{EWMAChart}，在实际中一般选择固定值0.125 \upcite{ath9k}或0.25 \upcite{minstrel}。
+  \item 合适的加权因子难以选择，理论上$\alpha$应设置在0.1到0.3之间 \cite{EWMAChart}，在实际中一般选择固定值0.125 \cite{ath9k}或0.25 \cite{minstrel}。
 \end{itemize}
 
 以上两点造成加权算法无法对测试精度与测试开销进行有效地控制，因此有必要针对移动802.11n网络的时空多变及多配置特性，提出有效地传输成功率测试算法，以适应链路质量的变化并有效调整测试精度与开销。
@@ -372,7 +372,7 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 
 802.11n标准采用多种物理层及链路层技术，实现更高的吞吐量和更广的覆盖范围。在物理层，802.11n网络利用MIMO技术实现空间复用与分集，同时利用OFDM调制方式以降低信号干扰并提升频谱利用效率，802.11n网络利用信道绑定技术可以将相邻两个20MHz的信道作为一个40MHz信道使用，从而有效提升网络吞吐量；在链路层，802.11n网络使用短保护间隔（Short Guard Interval, SGI）及帧聚合技术，以降低通信开销并提高传输效率。802.11n 网络通过以上的物理层与链路层技术，一方面能够有效提升网络性能，另一方面提高了信道状态估计和链路质量测试的复杂度，对于不同的MIMO-OFDM 配置，PDR-RSS模型具有不同特点。
 
-为了实现802.11n网络的在线PDR-RSS建模框架，本文首先通过大量实验数据对PDR-RSS模型进行刻画，以及该模型与物理层和链路层配置的关系，主要包括信道带宽HT、调制与编码策略MCS和保护间隔长度GI。其中信道带宽分为HT=\{HT20, HT40\}，保护间隔长度类型分为GI=\{LGI, SGI\}，MCS与MIMO 配置有关，对于3$\times$3的MIMO系统而言，MCS=\{0, 1, 2, ..., 23\}。除了网络配置之外，还需要对网络的不同位置与路线进行刻画，对802.11n 网络的PDR-RSS 模型的刻画至少需要500次重复实验，以完整包括网络的不同配置与网络状态，以下为通过这些实验数据对802.11n网络的PDR-RSS模型的总结。
+为了实现802.11n网络的在线PDR-RSS建模框架，本文首先通过大量实验数据对PDR-RSS模型进行刻画，以及该模型与物理层和链路层配置的关系，主要包括信道带宽HT、调制与编码策略MCS和保护间隔长度GI。其中信道带宽分为HT=\{HT20, HT40\}，保护间隔长度类型分为GI=\{LGI, SGI\}，MCS与MIMO配置有关，对于3$\times$3的MIMO系统而言，MCS=\{0, 1, 2, ..., 23\}。除了网络配置之外，还需要对网络的不同位置与路线进行刻画，对802.11n 网络的PDR-RSS 模型的刻画至少需要500次重复实验，以完整包括网络的不同配置与网络状态，以下为通过这些实验数据对802.11n网络的PDR-RSS模型的总结。
 
 \begin{figure}[!htp]
 \centering
@@ -392,7 +392,7 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
   \item \textbf{调制编码：}
   不同的调制与编码策略对于802.11n网络的PDR-RSS模型具有很大影响，图 \ref{fig:pdr_lgi} 与图 \ref{fig:pdr_sgi} 刻画了在HT=HT20/HT40和GI=LGI/SGI 下PDR-RSS模型与MCS的关系。第一，接收灵敏度随着MCS的上升而增大，当MCS从8增加到14时，HT20/SGI与HT40/SGI的接收灵敏度分别在(-80dBm, -50dBm)和(-80dBm, -40dBm)范围内递增；第二，过渡窗口长度$\rho$同样随着MCS的上升而增大，尤其当传输速率高于115Mbps时，从图 \ref{fig:pdr_sgi} 中可以看出，当MCS=12时$\rho$甚至达到15dB，而过长的过渡窗口长度会严重降低网络的有效吞吐量。
   \item \textbf{保护间隔：}
-  802.11n网络采用短保护间隔以进一步提升网络性能，理论上GI=SGI可以获得11\%的传输速率的提升 \upcite{perahia2008next}。当传输速率较低时，SGI与LGI 的传输成功率和吞吐量没有很大分别，如图 \ref{fig:pdr_lgi} 和图 \ref{fig:pdr_sgi} 所示。但是当传输速率较高时，SGI可以明显提高网络性能，尤其对于HT40信道而言，如图 \ref{fig:pdr_sgi_high} 所示，对于HT=HT40且MCS=15时，LGI的PDR总是低于40\%，而对于HT20与HT40信道，SGI的PDR分别可以得到10\%-40\%和20\%-60\%提升。
+  802.11n网络采用短保护间隔以进一步提升网络性能，理论上GI=SGI可以获得11\%的传输速率的提升 \cite{perahia2008next}。当传输速率较低时，SGI与LGI 的传输成功率和吞吐量没有很大分别，如图 \ref{fig:pdr_lgi} 和图 \ref{fig:pdr_sgi} 所示。但是当传输速率较高时，SGI可以明显提高网络性能，尤其对于HT40信道而言，如图 \ref{fig:pdr_sgi_high} 所示，对于HT=HT40且MCS=15时，LGI的PDR总是低于40\%，而对于HT20与HT40信道，SGI的PDR分别可以得到10\%-40\%和20\%-60\%提升。
 \end{enumerate}
 
 \begin{figure}[!htp]
@@ -450,7 +450,7 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \subsection{实验平台}
 \label{sec:platform80211n}
 
-802.11n网络测试平台主要由无线接入点（Access Point, AP）、静态节点及移动节点组成，其中AP为TP-LINK的双频无线路由器TL-WRD4310，其无线通信芯片为Atheros AR9580无线模块，该模块支持最高3$\times$3的MIMO配置，在HT20/HT40信道下能够实现300Mbps/450Mbps的无线数据传输速率，静态节点和移动节点分别为台式机和便携式笔记本，并配置Atheros的3天线双频无线网卡AR9380，所有的无线通信节点运行于Linux系统（内核版本 3.2.0-26），并通过\texttt{ath9k} \upcite{ath9k}开源无线驱动实现无线通信。
+802.11n网络测试平台主要由无线接入点（Access Point, AP）、静态节点及移动节点组成，其中AP为TP-LINK的双频无线路由器TL-WRD4310，其无线通信芯片为Atheros AR9580无线模块，该模块支持最高3$\times$3的MIMO配置，在HT20/HT40信道下能够实现300Mbps/450Mbps的无线数据传输速率，静态节点和移动节点分别为台式机和便携式笔记本，并配置Atheros的3天线双频无线网卡AR9380，所有的无线通信节点运行于Linux系统（内核版本 3.2.0-26），并通过\texttt{ath9k} \cite{ath9k}开源无线驱动实现无线通信。
 
 \begin{figure}[!htp]
 \centering
@@ -493,7 +493,7 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \end{algorithmic}
 \end{algorithm}
 
-如果当前配置下过渡窗口上限与当前RSS之差低于3dB时或高于10dB时，系统将根据HT/GI/MCS选择序列进行重新配置。如果该距离低于3dB（第 \ref{alg:lowlimit} 行），则在当前HT/GI选择区域内选择更低的MCS 配置以降低传输速率，或在其他HT/GI区域内选择相同的MCS配置以保证当前传输速率；相反当此距离大于10dB时（第 \ref{alg:highlimit} 行），GradedR将提高MCS 以提升网络性能，同样优先在当前HT/GI 区域内进行选择。考虑到在第\ref{sec:initial}节中关于保护间隔对PDR-RSS模型的影响，在配置选择过程将SGI作为最后选择，即当且仅当在LGI配置下的最高MCS仍然无法满足PDR或传输速率要求时，则选择SGI配置以保证网络性能。
+如果当前配置下过渡窗口上限与当前RSS之差低于3dB时或高于10dB时，系统将根据HT/GI/MCS选择序列进行重新配置。如果该距离低于3dB（第 \ref{alg:lowlimit} 行），则在当前HT/GI选择区域内选择更低的MCS 配置以降低传输速率，或在其他HT/GI区域内选择相同的MCS配置以保证当前传输速率；相反当此距离大于10dB时（第 \ref{alg:highlimit} 行），GradedR将提高MCS以提升网络性能，同样优先在当前HT/GI 区域内进行选择。考虑到在第\ref{sec:initial}节中关于保护间隔对PDR-RSS模型的影响，在配置选择过程将SGI作为最后选择，即当且仅当在LGI配置下的最高MCS仍然无法满足PDR或传输速率要求时，则选择SGI配置以保证网络性能。
 
 \begin{figure}[!htp]
 \centering
@@ -511,7 +511,7 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 \subsection{传输成功率}
 \label{sec:pdr}
 
-在静态无线网络中，接收信号强度在短时间内基本保持不变 \upcite{reis2006model}，可以认为在PDR测试过程中$p_i$恒定不变，则$x_i$为独立同分布随机变量，此时可以刻画为伯努利过程，即$\textbf{P(}x_i=1\textbf{)}=p$且$X\sim B(p)$，此时DSWA和EWMA都是被测PDR的无偏估计，因此具有相同的测试精度，而DSWA可以有效降低测试开销。但是在实际网络中，EWMA的测试精度明显低于DSWA，主要原因是$p_i$的时变特性，而在移动网络中还需要考虑网络的空间特性。图 \ref{fig:DSWA_error} 为移动网络中EWMA和DSWA算法测试误差的累积分布函数（Cumulative Distribution Function, CDF），对于DSWA测试算法而言，其测试误差在$\pm$0.008之间，而EWMA的测试误差为-0.019到0.032。同时从EWMA算法测试误差的CDF曲线可以看出，其测试误差相对于$Error=0$整体右移，说明EWMA算法的PDR测试结果相对于真实值普遍偏高，从而影响网络性能。相对于EWMA测试算法，DSWA算法在整体的测试精度上可以提高89\%。
+在静态无线网络中，接收信号强度在短时间内基本保持不变 \cite{reis2006model}，可以认为在PDR测试过程中$p_i$恒定不变，则$x_i$为独立同分布随机变量，此时可以刻画为伯努利过程，即$\textbf{P(}x_i=1\textbf{)}=p$且$X\sim B(p)$，此时DSWA和EWMA都是被测PDR的无偏估计，因此具有相同的测试精度，而DSWA可以有效降低测试开销。但是在实际网络中，EWMA的测试精度明显低于DSWA，主要原因是$p_i$的时变特性，而在移动网络中还需要考虑网络的空间特性。图 \ref{fig:DSWA_error} 为移动网络中EWMA和DSWA算法测试误差的累积分布函数（Cumulative Distribution Function, CDF），对于DSWA测试算法而言，其测试误差在$\pm$0.008之间，而EWMA的测试误差为-0.019到0.032。同时从EWMA算法测试误差的CDF曲线可以看出，其测试误差相对于$Error=0$整体右移，说明EWMA算法的PDR测试结果相对于真实值普遍偏高，从而影响网络性能。相对于EWMA测试算法，DSWA算法在整体的测试精度上可以提高89\%。
 
 \begin{figure}[!htp]
 \centering
@@ -620,13 +620,13 @@ $\textbf{D[}\Delta PDF_s\textbf{]}$ & 0.036 & 0.037 & 0.038 & 0.029 & 0.039 & 0.
 
 图 \ref{fig:route} 所示为沿线路\textbf{r5}（如图 \ref{fig:testbed80211n} 所示）的速率控制结果，主要对特定移动路线的PDR和吞吐量进行评估。首先对于所有的MIMO配置，GradedR能够明显提升网络可靠性，对于路线\textbf{r5}的所有GradedR测试至少91\%的PDR高于90\%，而Minstrel约有63\%的PDR低于90\%；同时随着MIMO可用天线数量的增加，GradedR的可靠性随之上升，其低于90\%的PDR所占比例由9\%降低为5\%，而Minstrel的这一比例却从37\% 上升为51\%，说明Minstrel的可靠性随着天线数量增加而降低。其次GradedR能够明显提高网络吞吐量，对于1$\times$3的MIMO配置，GradedR算法只有在时间20秒之前吞吐量高于Minstrel算法5-15Mbps，其他情况下的吞吐量基本相同；而在2$\times$3和3$\times$3的MIMO配置下，GradedR算法的吞吐量明显高于Minstrel算法，在2$\times$3配置下大约高于5-20Mbps，在3$\times$3配置下甚至达到30Mbps的性能提升。GradedR能够实现吞吐量的有效提升，一方面是由于上文中提到的PDR的大幅提升，另一方面在于其实时准确的配置选择策略。第一，GradedR利用DSWA算法能够获得准确的PDR参数，根据网络当前状态及在线PDR-RSS模型得到准确的最优配置选择，能够在保证网络可靠性的基础之上尽量提高网络吞吐量，而Minstrel 通过随机探测的方式寻找可用配置，或直接降低MCS\footnote{降低MCS值即降低网络的数据传输速率}以保证数据的可靠传输，其配置选择效率受到很大限制；第二，由于DSWA在网络状态稳定时能够有效降低测试开销，同时GradedR不需要多余的探测数据包进行测试，从而有效降低由配置选择带来的额外开销，而Minstrel需要依靠10\%的探测数据包来获得当前可用配置，其效率与准确性受到明显限制，同时探测数据包降低了可用数据传输的吞吐量。
 
-吞吐量与平均RSS的关系如图 \ref{fig:throughput} 所示，包括图 \ref{fig:testbed80211n} 中\textbf{r1}到\textbf{r6}的所有移动测试数据。整体上GradedR能够在不同MIMO配置下实现更高的吞吐量，在相同的平均RSS条件下同样具有更高的吞吐量，同时吞吐量的提升随着天线数量和平均RSS的增加而增加。从图 \ref{fig:throughput} 可以看出，GradedR在1$\times$3和3$\times$3的MIMO配置下分别提升吞吐量5-15Mbps和10-40Mbps；在特定MIMO配置下，不同速率控制算法的吞吐量都与平均RSS密切相关，当平均RSS低于-60dBm时，单天线和双天线系统的吞吐量基本相同，GradedR在3$\times$3的MIMO系统下的最大吞吐量提升为5Mbps，主要原因是GradedR的可选配置受天线数量和平均RSS的限制。另一方面Minstrel速率控制算法结合DSWA测试算法同样可以实现吞吐量提升，相对于采用EWMA测试算法的Minstrel，Minstrel-DSWA的吞吐量提升同样随着天线数量和平均RSS而增加。如图 \ref{fig:throughput} 所示，当平均RSS高于-40dBm时，对于1$\times$3MIMO系统，Minstrel-DSWA能够获得最高8Mbps的吞吐量提升，对于2$\times$3 和3$\times$3MIMO系统，最高的吞吐量提升分别为25Mbps和30Mbps。总体上，在不同的MIMO配置条件下，GradedR相对于Minstrel能够实现40\%的吞吐量提升，同时在2$\times$3和3$\times$3的MIMO配置系统中，Minstrel算法结合DSWA测试算法同样能够实现高于Minstrel-EWMA算法20\%/25\%的吞吐量。
+吞吐量与平均RSS的关系如图 \ref{fig:throughput} 所示，包括图 \ref{fig:testbed80211n} 中\textbf{r1}到\textbf{r6}的所有移动测试数据。整体上GradedR能够在不同MIMO配置下实现更高的吞吐量，在相同的平均RSS条件下同样具有更高的吞吐量，同时吞吐量的提升随着天线数量和平均RSS的增加而增加。从图 \ref{fig:throughput} 可以看出，GradedR在1$\times$3和3$\times$3的MIMO配置下分别提升吞吐量5-15Mbps和10-40Mbps；在特定MIMO配置下，不同速率控制算法的吞吐量都与平均RSS密切相关，当平均RSS低于-60dBm时，单天线和双天线系统的吞吐量基本相同，GradedR在3$\times$3的MIMO系统下的最大吞吐量提升为5Mbps，主要原因是GradedR的可选配置受天线数量和平均RSS的限制。另一方面Minstrel速率控制算法结合DSWA测试算法同样可以实现吞吐量提升，相对于采用EWMA测试算法的Minstrel，Minstrel-DSWA的吞吐量提升同样随着天线数量和平均RSS而增加。如图 \ref{fig:throughput} 所示，当平均RSS高于-40dBm时，对于1$\times$3MIMO系统，Minstrel-DSWA能够获得最高8Mbps的吞吐量提升，对于2$\times$3 和3$\times$3MIMO系统，最高的吞吐量提升分别为25Mbps和30Mbps。总体上，在不同的MIMO配置条件下，GradedR相对于Minstrel能够实现40\%的吞吐量提升，同时在2$\times$3和3$\times$3的MIMO配置系统中，Minstrel-DSWA能够实现高于Minstrel-EWMA算法20\%/25\%的吞吐量。
 
 
 \section{本章小结}
 \label{sec:conclusion3}
 
-本章主要讨论在移动网络中，MIMO-OFDM无线系统的链路质量测试与建模问题。本文首先提出基于动态滑动窗口平均的PDR测试算法，通过数据包收发事件驱动确定采样间隔，从而避免多配置对PDR测试的影响，同时利用当前PDR信息降低测试开销。然后以PDR测试算法为基础，提出在线PDR-RSS建模框架，通过PDR-RSS模型数据库结合实时更新，解决MIMO-OFDM系统多配置带来的过渡窗口问题。以上的PDR测试算法与在线建模框架，通过同时应用物理层指标RSS与链路层指标PDR，有效地解决了移动性及多配置对链路质量测试与建模的影响。最后通过速率控制算法设计及其系统实现，对以上算法进行实验评估，评估结果表明本文提出的PDR测试算法能够提升89\%的测试精度，同时结合在线建模框架能够在不同MIMO配置下实现40\%的吞吐量提升。
+本章主要讨论在移动网络中，MIMO-OFDM系统的链路质量测试与建模问题。本文首先提出基于动态滑动窗口平均的PDR测试算法，通过数据包收发事件驱动确定采样间隔，从而避免多配置对PDR测试的影响，同时利用当前PDR信息降低测试开销；然后以PDR测试算法为基础，提出在线PDR-RSS建模框架，通过PDR-RSS模型数据库结合实时更新，解决MIMO-OFDM系统多配置带来的过渡窗口问题。以上的PDR测试算法与在线建模框架，同时利用物理层指标RSS与链路层指标PDR，有效地解决了移动性及多配置对链路质量测试与建模的影响。最后通过速率控制算法设计及其系统实现，对以上算法进行实验评估，评估结果表明动态PDR测试算法能够提升89\%的测试精度，同时结合在线建模框架能够在不同MIMO配置下实现40\%的吞吐量提升。
 
 
 \nocite{10.1109/TMC.2009.87,Ahmed2008Online,Deek:2011,dujovne2010taxonomy,hiertz2010802.11,kim2006accurate,kim2009experimental,kolar2011mesh}
