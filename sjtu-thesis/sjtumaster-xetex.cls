@@ -243,7 +243,7 @@
 \songti\zihao{-3}\CAST@label@statement
 
     \vskip \stretch{1}
-       {\heiti\zihao{2} \CAST@value@title}
+       {\heiti\zihao{3} \CAST@value@title}
     \vskip \stretch{1}
     {\fangsong\zihao{4}}
     \def\tabcolsep{1pt}
